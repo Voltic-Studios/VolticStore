@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voltic Studios</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,8 +19,8 @@
         <h1>10% DISCOUNT WITH CODE: <span>10VOLTIC</span></h1>
     </div>
     <div id="login-shopping-cart">
-        <a href="#" onclick="alert('Apartado en desarrollo.\n¡Vuelva más tarde!')"><i class="fa-solid fa-user"></i></a>
-        <a href="#" onclick="alert('Apartado en desarrollo.\n¡Vuelva más tarde!')"><i
+        <a href="#" th:href="@{/login}"><i class="fa-solid fa-user"></i></a>
+        <a href="#"><i
                 class="fa-solid fa-shopping-cart"></i></a>
     </div>
     <div id="navigator">
@@ -42,7 +41,7 @@
     </div>
 
     <div id="header">
-        <img th:src="@{/img/main_logo.png}" alt="Logo">
+        <img th:src="@{/static/img/main_logo.png}" alt="Logo">
     </div>
 
     <!--
@@ -76,7 +75,7 @@
     <h1 class="package-title">Trending packages</h1>
     <div class="packages">
         <div class="package">
-            <img th:src="@{/img/esx.jpg}" alt="ESX Logo">
+            <img th:src="@{/static/img/esx.jpg}" alt="ESX Logo">
             <h2>ESX</h2>
             <p>ESX is a framework for building roleplay servers. It is the most popular framework for FiveM servers.</p>
             <a href="https://fivem.net" class="button">
@@ -85,7 +84,7 @@
             </a>
         </div>
         <div class="package">
-            <img th:src="@{/img/qbcore.png}" alt="qbCore Logo">
+            <img th:src="@{/static/img/qbcore.png}" alt="qbCore Logo">
             <h2>QBCore</h2>
             <p>QBCore is a framework for building roleplay servers. It is the most popular framework for FiveM servers.
             </p>
@@ -95,7 +94,7 @@
             </a>
         </div>
         <div class="package">
-            <img th:src="@{/img/volticframework.png}" alt="vOLTIC Logo">
+            <img th:src="@{/static/img/volticframework.png}" alt="vOLTIC Logo">
             <h2>Custom framework</h2>
             <p>Voltic is a framework for building roleplay servers. It is the most popular framework for FiveM servers.
             </p>

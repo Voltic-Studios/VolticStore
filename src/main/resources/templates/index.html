@@ -19,7 +19,13 @@
         <h1>10% DISCOUNT WITH CODE: <span>10VOLTIC</span></h1>
     </div>
     <div id="login-shopping-cart">
-        <a href="#" th:href="@{/login}"><i class="fa-solid fa-user"></i></a>
+        <th:block th:if="${#authentication.isAuthenticated()}">
+            <span th:text="${#authentication.name}"></span>
+            <a href="#" th:href="@{/panel}"><i class="fa-solid fa-user"></i></a>
+        </th:block>
+        <th:block th:unless="${#authentication.isAuthenticated()}">
+            <a href="#" th:href="@{/login}"><i class="fa-solid fa-user"></i></a>
+        </th:block>
         <a href="#"><i
                 class="fa-solid fa-shopping-cart"></i></a>
     </div>
@@ -130,6 +136,11 @@
             </p>
         </div>
     </div>
-    <script th:src="@{/js/main.js}"></script>
+
+    <h1 class="package-title">Users</h1>
+
+    <div th:each="user : ${users}">
+        <p th:text="${user.username}"></p>
+    </div>
 </body>
 </html>

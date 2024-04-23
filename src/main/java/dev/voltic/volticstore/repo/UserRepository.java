@@ -16,8 +16,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.email = :email")
     User getUserByEmail(String email);
 
-    @Query("SELECT u FROM User u WHERE u.role.name = 'USER'")
+    @Query("SELECT u FROM User u")
     List<User> getAllUsers();
+
+    @Query("SELECT u FROM User u WHERE u.role.name = 'USER'")
+    List<User> getAllNormalUsers();
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.role.name = 'ADMIN'")
     long countAdmins();

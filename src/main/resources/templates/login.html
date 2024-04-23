@@ -1,16 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login form</title>
 </head>
-<body>
-    <form method="POST" th:action="@{/login}">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required autofocus>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
+<body class="align">
+
+<div class="grid">
+    <div class="text--center">
+        <h1>LOGIN FORM</h1>
+    </div>
+
+    <form method="POST" th:action="@{/login}" class="form login">
+        <div th:if="${param.error}">
+            <p class="text-danger">Invalid username or password.</p>
+        </div>
+        <div class="form__field">
+            <label for="login__username">
+                <span class="hidden">Username</span></label>
+            <input autocomplete="username" id="login__username" type="text" name="username" class="form__input"
+                   placeholder="Username" required>
+        </div>
+
+        <div class="form__field">
+            <label for="login__password">
+                <span class="hidden">Password</span></label>
+            <input id="login__password" type="password" name="password" class="form__input" placeholder="Password"
+                   required>
+        </div>
+
+        <div class="form__field">
+            <input type="submit" value="Sign In">
+        </div>
     </form>
+</div>
+
 </body>
 </html>

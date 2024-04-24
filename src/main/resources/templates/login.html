@@ -1,42 +1,34 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltic Studios</title>
+    <link rel="icon" href="src/img/main_logo.png">
+    <link rel="stylesheet" th:href="@{static/css/auth.css}">
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css">
 </head>
-<body class="align">
+<body>
+<div class="bubble bubble_one"></div>
+<div class="bubble bubble_two"></div>
+<div class="bubble bubble_three"></div>
+<div class="bubble bubble_four"></div>
 
-<div class="grid">
-    <div class="text--center">
-        <h1>LOGIN FORM</h1>
-    </div>
-
-    <form method="POST" th:action="@{/login}" class="form login">
-        <div th:if="${param.error}">
-            <p class="text-danger">Invalid username or password.</p>
+<div class="login-box">
+    <h2>Login</h2>
+    <form method="post" th:action="@{/login}">
+        <div class="user-box">
+            <input type="text" name="username" required="">
+            <label>Username</label>
         </div>
-        <div class="form__field">
-            <label for="login__username">
-                <span class="hidden">Username</span></label>
-            <input autocomplete="username" id="login__username" type="text" name="username" class="form__input"
-                   placeholder="Username" required>
+        <div class="user-box">
+            <input type="password" name="password" required="">
+            <label>Password</label>
         </div>
-
-        <div class="form__field">
-            <label for="login__password">
-                <span class="hidden">Password</span></label>
-            <input id="login__password" type="password" name="password" class="form__input" placeholder="Password"
-                   required>
-        </div>
-
-        <div class="form__field">
-            <input type="submit" value="Sign In">
-        </div>
+        <input type="submit" value="SUBMIT">
     </form>
 </div>
-
 </body>
 </html>

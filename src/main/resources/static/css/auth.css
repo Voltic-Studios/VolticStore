@@ -80,19 +80,64 @@ body {
     border-radius: 10px;
 }
 
+.error-alert {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: auto;
+    height: auto;
+    border-radius: 1vh;
+    padding: 2vh;
+    background: #ff0000;
+    color: white;
+    text-align: center;
+    display: none;
+    animation: slide-down 1s ease-in-out;
+}
+
+.error-alert p {
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes slide-down {
+    0% {
+        top: -10%;
+    }
+
+    100% {
+        top: 1%;
+    }
+}
 
 .login-box img {
-    width: 25%;
+    width: 30%;
     padding: 10px 0;
     position: relative;
-    margin: 0 0 30px;
-    animation: moving 2s ease-in-out infinite alternate;
+}
+
+.register {
+    margin: 1vh;
+    justify-content: end;
+    text-align: right;
+    width: 100%;
+}
+
+.register > a {
+    color: white;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.register > a:hover {
+    color: #4234ff;
+    transition: 0.5s;
 }
 
 .login-box .avatar {
     overflow: hidden;
     left: calc(50% - 50px);
-    align-items: center;
 }
 
 .login-box h2 {
@@ -147,10 +192,10 @@ body {
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
+    margin-top: 1vh;
     letter-spacing: 4px;
     background: transparent;
-    border: none;
+    border: 2px solid #4234ff;
 }
 
 .login-box input[type="submit"]:hover {

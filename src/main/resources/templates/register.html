@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltic Studios</title>
+    <link rel="icon" href="src/img/main_logo.png">
+    <link rel="stylesheet" th:href="@{static/css/auth.css}">
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css">
+</head>
+<body>
+
+<div class="error-alert" id="error">
+    <p>
+        <i class="fa-solid fa-circle-exclamation"></i>
+        The password don't match!
+    </p>
+</div>
+
+<div class="bubble bubble_one"></div>
+<div class="bubble bubble_two"></div>
+<div class="bubble bubble_three"></div>
+<div class="bubble bubble_four"></div>
+
+<div class="login-box">
+    <img th:src="@{/static/img/main_logo.png}" class="avatar" alt="avatar">
+    <h2>LOGIN</h2>
+    <form method="post" th:action="@{/register/submit}" th:object="${user}" id="register">
+        <div class="user-box">
+            <input type="text" th:name="*{username}" required="">
+            <label>Username</label>
+        </div>
+        <div class="user-box">
+            <input type="email" th:name="*{email}" required="">
+            <label>E-Mail</label>
+        </div>
+        <div class="user-box">
+            <input type="password" id="pass1" required="">
+            <label>Password</label>
+        </div>
+        <div class="user-box">
+            <input type="password" id="pass2" th:name="*{password}" required="">
+            <label>Repeat password</label>
+        </div>
+        <button id="submit">SUBMIT</button>
+    </form>
+    <div class="register">
+        <a th:href="@{/register}" >Don't have an account?</a>
+    </div>
+</div>
+<script>
+    const pass1 = document.getElementById('pass1');
+    const pass2 = document.getElementById('pass2');
+    const submit = document.getElementById('submit');
+    const error = document.getElementById('error');
+
+    submit.onclick = function() {
+        error.style.display = 'none';
+        if (pass1.value !== pass2.value) {
+            error.style.display = 'block';
+        } else {
+            document.getElementById('register').submit();
+        }
+    }
+</script>
+</body>
+</html>

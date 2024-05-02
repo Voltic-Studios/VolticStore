@@ -12,10 +12,6 @@ body {
     left: -280px;
 }
 
-.show {
-    left: 0;
-}
-
 img#logo {
     width: 10%;
     box-shadow: none;

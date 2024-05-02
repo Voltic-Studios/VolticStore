@@ -1,146 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voltic Studios</title>
-    <link rel="stylesheet" th:href="@{/static/css/style.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <title>Voltic Studios Shop</title>
     <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/static/css/popup.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <div id="mov-title">
-        <h1>10% DISCOUNT WITH CODE: <span>10VOLTIC</span></h1>
+<nav id="menu" class="left show">
+    <div id="menu_img">
+        <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
     </div>
-    <div id="login-shopping-cart">
-        <th:block th:if="${#authentication.isAuthenticated()}">
+    <ul>
+        <li><a th:href="@{/}" class="active"><i class="fa fa-home"></i>Home</a></li>
+        <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
+        <li>
+            <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
+            <ul style="display: block;">
+                <li><a href="#"><i class="fa fa-gun"></i>FiveM</a></li>
+                <li><a href="#"><i class="fa-solid fa-pickaxe"></i>Minecraft</a></li>
+                <li><a href="#"><i class="fa fa-users"></i>Services</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
+    </ul>
+</nav>
+<!-- /menu vertical -->
+
+<!-- contenido de pagina, realmente no importa -->
+<div id="container">
+    <div id="shopping-cart">
+        <a th:href="@{/login}" class="cart">
             <span th:text="${#authentication.name}"></span>
-            <a href="#" th:href="@{/panel}"><i class="fa-solid fa-user"></i></a>
-        </th:block>
-        <th:block th:unless="${#authentication.isAuthenticated()}">
-            <a href="#" th:href="@{/login}"><i class="fa-solid fa-user"></i></a>
-        </th:block>
-        <a href="#"><i
-                class="fa-solid fa-shopping-cart"></i></a>
+            <i class="fa fa-user"></i>
+        </a>
+        <a th:href="@{/cart}" class="cart"><i class="fa fa-shopping-cart"></i></a>
     </div>
-    <div id="navigator">
-        <ul>
-            <li class="active">
-                <i class="fa-solid fa-house"></i>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <i class="fas fa-book"></i>
-                <a href="#" onclick="alert('Apartado en desarrollo.\n¡Vuelva más tarde!')">About us</a>
-            </li>
-            <li>
-                <i class="fas fa-store"></i>
-                <a href="#" onclick="alert('Apartado en desarrollo.\n¡Vuelva más tarde!')">Store</a>
-            </li>
-        </ul>
+    <div class="content">
+        <img th:src="@{/static/img/1500x500.jpg}" alt="logo" class="logo">
+        <span>
+                <h2>WELCOME TO VOLTIC STORE</h2>
+            </span>
+        <span>
+                <p>Exceptional scripts crafted for your FiveM server!</p>
+            </span>
+        <span>
+                <h3>✓ TRUSTED BY OVER 7000+ CUSTOMERS</h3>
+                <h3>✓ ESX / QBCORE COMPATIBILITY</h3>
+                <h3>✓ SUPERIOR SCRIPTS</h3>
+                <h3>✓ ESCROWED AND UNLOCKED AVAILABLE</h3>
+            </span>
+        <span>
+                <a class="button">SHOP NOW</a>
+                <a class="button">CONTACT US</a>
+            </span>
     </div>
-
-    <div id="header">
-        <img th:src="@{/static/img/main_logo.png}" alt="Logo">
-    </div>
-
-    <!--
-            <div class="grid-container">
-        <div class="grid-item">
-            <h1 class="title">
-                <i class="fas fa-quote-left"></i>
-                VOLTIC STUDIOS
-            </h1>
-            <h2 class="subtitle">
-                Exceptional scripts crafted for your FiveM server!
-            </h2>
-            <p class="description">
-                <span>✓ TRUSTED BY OVER 7000+ CUSTOMERS</span>
-                <span>✓ ESX / QBCORE COMPATIBILITY</span>
-                <span>✓ SUPERIOR SCRIPTS</span>
-                <span>✓ ESCROWED AND UNLOCKED AVAILABLE</span>
-            </p>
-            <a href="https://fivem.net" class="button">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>ABOUT FIVEM</span>
-            </a>
-            <a href="https://overworld.es" class="button">
-                <i class="fa-solid fa-server"></i>
-                <span>OFFICIAL SERVER</span>
-            </a>
+    <div class="content">
+        <h2>FREQUENTLY ASKED QUESTIONS</h2>
+        <div class="faq">
+            <h3 onclick="display(this)">How do I install the scripts? <i class="fa fa-caret-down"></i></h3>
+            <p class="faq-item">After purchasing a script, you will receive a download link. You can download the
+                script and follow
+                the instructions in the README file.</p>
         </div>
-    </div>
-    -->
-
-    <h1 class="package-title">Trending packages</h1>
-    <div class="packages">
-        <div class="package">
-            <img th:src="@{/static/img/esx.jpg}" alt="ESX Logo">
-            <h2>ESX</h2>
-            <p>ESX is a framework for building roleplay servers. It is the most popular framework for FiveM servers.</p>
-            <a href="https://fivem.net" class="button">
-                <i class="fa-solid fa-sack-dollar"></i>
-                <span>BUY ESX</span>
-            </a>
+        <div class="faq">
+            <h3 onclick="display(this)">What is the refund policy? <i class="fa fa-caret-down"></i></h3>
+            <p class="faq-item">We offer a 7-day refund policy. If you are not satisfied with your purchase, you can
+                request a refund
+                within 7 days of your purchase.</p>
         </div>
-        <div class="package">
-            <img th:src="@{/static/img/qbcore.png}" alt="qbCore Logo">
-            <h2>QBCore</h2>
-            <p>QBCore is a framework for building roleplay servers. It is the most popular framework for FiveM servers.
-            </p>
-            <a href="https://fivem.net" class="button">
-                <i class="fa-solid fa-sack-dollar"></i>
-                <span>BUY QBCORE</span>
-            </a>
-        </div>
-        <div class="package">
-            <img th:src="@{/static/img/volticframework.png}" alt="vOLTIC Logo">
-            <h2>Custom framework</h2>
-            <p>Voltic is a framework for building roleplay servers. It is the most popular framework for FiveM servers.
-            </p>
-            <a href="https://fivem.net" class="button">
-                <i class="fa-solid fa-sack-dollar"></i>
-                <span>BUY VOLTIC FRAMEWORK</span>
-            </a>
-        </div>
-    </div>
-
-    <h1 class="package-title">FAQ</h1>
-    <div id="faq">
-        <div id="display-all">
-            <span @click="displayAll">Display all <i class="fa-solid fa-chevron-down"></i></span>
-        </div>
-        <div class="faq-item">
-            <h2>What is FiveM? <i class="fa-solid fa-chevron-down"  @click="faqItemsToggle"></i></h2>
-            <p class="inactive">FiveM is a modification for Grand Theft Auto V enabling you to play multiplayer on customized dedicated
-                servers.</p>
-        </div>
-        <div class="faq-item">
-            <h2>What is ESX? <i class="fa-solid fa-chevron-down"  @click="faqItemsToggle"></i></h2>
-            <p class="inactive">ESX is a framework for building roleplay servers. It is the most popular framework for FiveM servers.</p>
-        </div>
-        <div class="faq-item">
-            <h2>What is QBCore? <i class="fa-solid fa-chevron-down"  @click="faqItemsToggle"></i></h2>
-            <p class="inactive">QBCore is a framework for building roleplay servers. It is the most popular framework for FiveM servers.
-            </p>
-        </div>
-        <div class="faq-item">
-            <h2 class="faq-toggle">What is Voltic Framework? <i class="fa-solid fa-chevron-down"  @click="faqItemsToggle"></i></h2>
-            <p class="inactive">Voltic is a framework for building roleplay servers. It is the most popular framework for FiveM servers.
+        <div class="faq">
+            <h3 onclick="display(this)">Do you offer support? <i class="fa fa-caret-down"></i></h3>
+            <p class="faq-item">
+                Yes, we offer support for all of our products. If you have any questions or need help with
+                installation, you can
+                contact us at any time.
+                <a href="/contact" class="link">Contact us</a>
             </p>
         </div>
     </div>
-
-    <h1 class="package-title">Users</h1>
-
-    <div th:each="user : ${users}">
-        <p th:text="${user.username}"></p>
+    <div class="popup">
+        <span id="close">&times;</span>
+        <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
+        <h2>Release discount for all products</h2>
+        <h3>15% OFF</h3>
+        <p>Coupon code:</p>
+        <div class="coupon">
+            <p>15OFF</p>
+        </div>
+        <a class="button">SHOP NOW</a>
     </div>
+</div>
+<!-- /contenido de pagina, realmente no importa -->
+<script th:src="@{/static/js/main.js}"></script>
 </body>
+
 </html>

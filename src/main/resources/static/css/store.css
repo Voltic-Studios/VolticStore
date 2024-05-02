@@ -1,0 +1,81 @@
+
+.cnt {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    flex-direction: column;
+}
+
+#mnt {
+    margin-right: 10vh;
+}
+
+.filter select {
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 2px;
+    background: #020025;
+    color: #bbb;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-bottom: 2px solid #4d50ff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+
+    justify-items: end;
+}
+
+.card {
+    background: #020025;
+    color: #bbb;
+    padding: 3vh 0.5vh;
+    border-radius: 2vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.card img {
+    width: 30%;
+    border-radius: 2vh;
+}
+
+.card h3 {
+    margin: 1vh;
+    font-size: 2.5vh;
+    text-transform: uppercase;
+}
+
+.card p {
+    font-size: 1.5vh;
+    margin-bottom: 3vh;
+}
+
+.card .buttn {
+    background: none;
+    border: 2px solid #4d50ff;
+    padding: 1.5vh;
+    border-radius: 1vh;
+    color: #4d50ff;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card .buttn:hover {
+    background-color: #4d50ff;
+    color: #fff;
+    transition: 0.3s;
+}

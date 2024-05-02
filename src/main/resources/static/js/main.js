@@ -1,29 +1,28 @@
-new Vue({
-    el: '#faq',
-    data: {
-        faqItems: document.querySelectorAll('.faq-item')
-    },
+$("#showmenu").click(function(e){
+    $("#menu").toggleClass("show");
+});
 
-    methods: {
-        faqItemsToggle: function (e) {
-            var el = e.target;
-            var item = el.closest('.faq-item');
-            var answer = item.querySelector('p'); // Get the <p> element inside .faq-item
+$("#menu a").click(function(event){
+    if($(this).next('ul').length){
+        event.preventDefault();
+        $(this).next().toggle('fast');
+        $(this).children('i:last-child').toggleClass('fa-caret-down fa-caret-right');
+    }
+});
 
-            if (answer.classList.contains('active')) {
-                answer.classList.remove('active');
-                answer.style.height = '0px';
-            } else {
-                answer.classList.add('active');
-            }
-        },
-        displayAll: function () {
-            console.log(this.faqItems);
-            this.faqItems.forEach(function (item) {
-                var answer = item.querySelector('p');
-                answer.classList.add('active');
-                answer.style.height = answer.scrollHeight + 'px';
-            });
-        }
-    },
+
+$(".faq h3").click(function(){
+    $(this).next(".faq-item").toggle('fast');
+    $(this).children('i').toggleClass('fa-caret-down fa-caret-right');
+});
+
+
+$(document).ready(function () {
+    setTimeout(function(){
+        $('.popup').slideDown(500);
+    }, 3000);
+
+    $('#close').on('click', function() {
+        $('.popup').slideUp(500);
+    });
 });

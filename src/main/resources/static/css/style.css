@@ -116,7 +116,7 @@ img#logo {
     background-color: #4d50ff;
     color: #fff;
     transition: 0.3s;
-    cursor: url('main_logo.png'), pointer;
+    cursor: pointer;
 }
 
 .faq {

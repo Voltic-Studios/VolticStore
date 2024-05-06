@@ -34,10 +34,18 @@
 
 <div id="container">
     <div id="shopping-cart">
-        <a th:href="@{/login}" class="cart">
-            <span th:text="${#authentication.name}"></span>
-            <i class="fa fa-user"></i>
-        </a>
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/dashboard}" class="cart">
+                <span th:text="${#authentication.name}"></span>
+                <i class="fa fa-user"></i>
+            </a>
+        </th:block>
+        <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/login}" class="cart">
+                <span>Login</span>
+                <i class="fa fa-user"></i>
+            </a>
+        </th:block>
         <a th:href="@{/cart}" class="cart"><i class="fa fa-shopping-cart"></i></a>
     </div>
     <div class="content">

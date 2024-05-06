@@ -1,0 +1,35 @@
+@charset "UTF-8";
+        .users table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .users th, .users td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            background-color: white;
+        }
+
+        .users tr:nth-child(even) {
+            background-color: white;
+        }
+
+        .users th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .title {
+            text-align: center !important;
+        }
+
+        .users table {
+            width: 100%;
+        }
+
+        .chart-container-header table {
+                    width: 100%;
+        }

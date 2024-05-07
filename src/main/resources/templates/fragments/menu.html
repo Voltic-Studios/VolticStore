@@ -1,0 +1,21 @@
+<div th:fragment="menuFragment(categories)">
+    <nav id="menu" class="left show">
+        <div id="menu_img">
+            <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
+        </div>
+        <ul>
+            <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
+            <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
+            <li>
+                <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
+                <ul style="display: block;" th:each="category : ${categories}">
+                    <li th:href="/pd/${category.id}">
+                        <span th:text="${category.image}"></span> <span th:text="${category.name}"></span>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
+        </ul>
+    </nav>
+    <!-- /menu vertical -->
+</div>

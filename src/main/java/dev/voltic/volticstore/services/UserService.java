@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
     @Autowired
@@ -16,5 +19,11 @@ public class UserService {
     }
     public List<User> listAll() {
         return repo.getAllUsers();
+    }
+
+    public Map<String, Long> countUsersByRole() {
+        List<User> users = repo.getAllUsers();
+        return users.stream()
+                .collect(Collectors.groupingBy(user -> user.getRole().getName(), Collectors.counting()));
     }
 }

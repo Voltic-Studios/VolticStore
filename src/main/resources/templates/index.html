@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voltic Studios Shop</title>
-    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css"/>
     <link rel="stylesheet" th:href="@{/static/css/style.css}">
     <link rel="stylesheet" th:href="@{/static/css/menu.css}">
     <link rel="stylesheet" th:href="@{/static/css/popup.css}">
@@ -18,14 +18,16 @@
         <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
     </div>
     <ul>
-        <li><a th:href="@{/}" class="active"><i class="fa fa-home"></i>Home</a></li>
+        <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
         <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
         <li>
             <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
-            <ul style="display: block;">
-                <li><a href="#"><i class="fa fa-gun"></i>FiveM</a></li>
-                <li><a href="#"><i class="fa-solid fa-pickaxe"></i>Minecraft</a></li>
-                <li><a href="#"><i class="fa fa-users"></i>Services</a></li>
+            <ul style="display: block;" th:each="category : ${categories}">
+                <li>
+                    <a th:href="@{/pd/__${category.id}__}">
+                        <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
+                    </a>
+                </li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>

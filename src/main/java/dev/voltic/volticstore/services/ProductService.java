@@ -9,14 +9,23 @@ import java.util.List;
 
 @Service
 public class ProductService {
+
     @Autowired
-    private ProductRepository repo;
+    private ProductRepository productRepository;
+
+    public List<Product> getProductsByCategory(String category) {
+        return productRepository.getProductsByCategory(category);
+    }
+
+    public List<Product> getProductsByCategoryId(Long id) {
+        return productRepository.getProductsByCategoryId(id);
+    }
 
     public Product getProductById(Long id) {
-        return repo.getProductById(id);
+        return productRepository.getProductById(id);
     }
 
     public List<Product> listAll() {
-        return repo.getAllProducts();
+        return productRepository.getAllProducts();
     }
 }

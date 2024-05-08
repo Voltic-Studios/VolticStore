@@ -35,7 +35,7 @@
                     Customers
                 </a>
             </li>
-            <li class="nav-list-item">
+            <li class="nav-list-item active">
                 <a class="nav-list-link" href="/orders">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
@@ -53,7 +53,7 @@
                     Products
                 </a>
             </li>
-            <li class="nav-list-item active">
+            <li class="nav-list-item">
                 <a class="nav-list-link" href="/users">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -86,19 +86,50 @@
                         <div class="users">
                             <table>
                                 <tr>
-                                    <th colspan="4" class="title">Users List</th>
-                                </tr>
-                                <tr>
                                     <th>ID</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Order Number</th>
+                                    <th>Order Date</th>
+                                    <th>Order Status</th>
+                                    <th>Customer</th>
+                                    <th>Products</th>
+                                    <th>Shipping Address</th>
+                                    <th>Shipping City</th>
+                                    <th>Shipping State</th>
+                                    <th>Shipping Zip</th>
+                                    <th>Shipping Country</th>
+                                    <th>Billing Address</th>
+                                    <th>Billing City</th>
+                                    <th>Billing State</th>
+                                    <th>Billing Zip</th>
+                                    <th>Billing Country</th>
+                                    <th>Payment Method</th>
+                                    <th>Payment Date</th>
+                                    <th>Payment Status</th>
                                 </tr>
-                                <tr th:each="user : ${listUsers}">
-                                    <td th:text="${user.id}"></td>
-                                    <td th:text="${user.username}"></td>
-                                    <td th:text="${user.email}"></td>
-                                    <td th:text="${user.role.name}"></td>
+                                <tr th:each="order : ${listOrders}">
+                                    <td th:text="${order.id}"></td>
+                                    <td th:text="${order.orderNumber}"></td>
+                                    <td th:text="${order.orderDate}"></td>
+                                    <td th:text="${order.orderStatus}"></td>
+                                    <td th:text="${order.customer.name}"></td>
+                                    <td>
+                                        <ul th:each="product : ${order.products}">
+                                            <li th:text="${product.name}"></li>
+                                        </ul>
+                                    </td>
+                                    <td th:text="${order.shippingAddress}"></td>
+                                    <td th:text="${order.shippingCity}"></td>
+                                    <td th:text="${order.shippingState}"></td>
+                                    <td th:text="${order.shippingZip}"></td>
+                                    <td th:text="${order.shippingCountry}"></td>
+                                    <td th:text="${order.billingAddress}"></td>
+                                    <td th:text="${order.billingCity}"></td>
+                                    <td th:text="${order.billingState}"></td>
+                                    <td th:text="${order.billingZip}"></td>
+                                    <td th:text="${order.billingCountry}"></td>
+                                    <td th:text="${order.paymentMethod}"></td>
+                                    <td th:text="${order.paymentDate}"></td>
+                                    <td th:text="${order.paymentStatus}"></td>
                                 </tr>
                             </table>
                         </div>

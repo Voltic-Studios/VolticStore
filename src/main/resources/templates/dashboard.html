@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a class="nav-list-link" href="">
+                <a class="nav-list-link" href="/customers">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase">
                         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                         <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
@@ -34,12 +34,21 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a class="nav-list-link" href="#">
+                <a class="nav-list-link" href="/orders">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                         <polyline points="13 2 13 9 20 9" />
                     </svg>
                     Orders
+                </a>
+            </li>
+            <li class="nav-list-item">
+                <a class="nav-list-link" href="/products">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                        <polyline points="13 2 13 9 20 9" />
+                    </svg>
+                    Products
                 </a>
             </li>
             <li class="nav-list-item">
@@ -66,7 +75,7 @@
     </div>
     <div class="app-main">
         <div class="main-header-line">
-            <h1>Applications Dashboard</h1>
+            <h1>Dashboard</h1>
             <div class="action-buttons">
                 <button class="open-right-area">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
@@ -86,27 +95,16 @@
             <div class="chart-container-wrapper">
                 <div class="chart-container">
                     <div class="chart-info-wrapper">
-                        <h2>Applications</h2>
-                        <span>20.5 K</span>
-                    </div>
-                    <div class="chart-svg">
-                        <svg viewBox="0 0 36 36" class="circular-chart pink">
-                            <path class="circle-bg" d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                            <path class="circle" stroke-dasharray="30, 100" d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                            <text x="18" y="20.35" class="percentage">30%</text>
-                        </svg>
+                        <h2>Orders</h2>
+                        <span id="orderCount" th:text="${orderCount}"></span>
                     </div>
                 </div>
             </div>
             <div class="chart-container-wrapper">
                 <div class="chart-container">
                     <div class="chart-info-wrapper">
-                        <h2>Shortlisted</h2>
-                        <span>5.5 K</span>
+                        <h2>Customers</h2>
+                        <span id="orderCount" th:text="${orderCount}"></span>
                     </div>
                     <div class="chart-svg">
                         <svg viewBox="0 0 36 36" class="circular-chart blue">
@@ -171,7 +169,7 @@
                     <div class="progress-bar-info">
                         <span class="progress-color applications"></span>
                         <span class="progress-type">Applications</span>
-                        <span class="progress-amount">64%</span>
+                        <span class="progress-amount">99%</span>
                     </div>
                     <div class="progress-bar-info">
                         <span class="progress-color shortlisted"></span>

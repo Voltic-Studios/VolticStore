@@ -26,7 +26,7 @@
                     Dashboard
                 </a>
             </li>
-            <li class="nav-list-item">
+            <li class="nav-list-item active">
                 <a class="nav-list-link" href="/customers">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase">
                         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
@@ -53,7 +53,7 @@
                     Products
                 </a>
             </li>
-            <li class="nav-list-item active">
+            <li class="nav-list-item">
                 <a class="nav-list-link" href="/users">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -86,19 +86,19 @@
                         <div class="users">
                             <table>
                                 <tr>
-                                    <th colspan="4" class="title">Users List</th>
+                                    <th colspan="4" class="title">Customers List</th>
                                 </tr>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Username</th>
+                                    <th>Name</th>
                                     <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Address</th>
                                 </tr>
-                                <tr th:each="user : ${listUsers}">
-                                    <td th:text="${user.id}"></td>
-                                    <td th:text="${user.username}"></td>
-                                    <td th:text="${user.email}"></td>
-                                    <td th:text="${user.role.name}"></td>
+                                <tr th:each="customer : ${listCustomers}">
+                                    <td th:text="${customer.id}"></td>
+                                    <td th:text="${customer.name}"></td>
+                                    <td th:text="${customer.email}"></td>
+                                    <td th:text="${customer.address}"></td>
                                 </tr>
                             </table>
                         </div>

@@ -37,7 +37,7 @@
 <div id="container">
     <div id="shopping-cart">
         <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <a th:href="@{/panel}" class="cart">
+            <a th:href="@{/dashboard}" class="cart">
                 <span th:text="${#authentication.name}"></span>
                 <i class="fa fa-user"></i>
             </a>

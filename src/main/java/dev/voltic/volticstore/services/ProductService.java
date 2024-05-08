@@ -21,5 +21,11 @@ public class ProductService {
         return productRepository.getProductsByCategoryId(id);
     }
 
+    public Product getProductById(Long id) {
+        return productRepository.getProductById(id);
+    }
 
+    public List<Product> listAll() {
+        return productRepository.getAllProducts();
+    }
 }

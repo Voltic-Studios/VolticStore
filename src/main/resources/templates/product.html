@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltic Studios Shop</title>
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/static/css/store.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+<!-- menu vertical -->
+<nav id="menu" class="left show">
+    <div id="menu_img">
+        <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
+    </div>
+    <ul>
+        <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
+        <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
+        <li>
+            <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
+            <ul style="display: block;" th:each="category : ${categories}">
+                <li>
+                    <a th:href="@{/pd/__${category.id}__}">
+                        <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
+    </ul>
+</nav>
+<!-- /menu vertical -->
+
+<!-- contenido de pagina, realmente no importa -->
+<div id="container">
+    <div id="shopping-cart">
+        <a href="#" class="cart">
+            anonymousUser
+            <i class="fa fa-user"></i>
+        </a>
+        <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
+    </div>
+    <div class="content">
+        <!-- <img th:src="@{/static/img/fivem.png}" alt="logo" id="logo"> -->
+        <span>
+                <h2><span th:text="${currentCategory.name.toUpperCase()}"></span> PRODUCTS</h2>
+            </span>
+    </div>
+    <div class="content cnt">
+            <span>
+                <form class="filter">
+                    <select>
+                        <option value="option0">All</option>
+                        <option value="option1">ESX</option>
+                        <option value="option2">QBCore</option>
+                        <option value="option3">QBox</option>
+                    </select>
+                </form>
+            </span>
+    </div>
+    <div class="content">
+        <div class="grid">
+            <th:block th:each="product : ${products}">
+                <div class="card">
+                    <img th:src="${product.image}" alt="product" class="product">
+                    <h3 th:text="${product.name}"></h3>
+                    <p>Price: <b th:text="${product.price}"></b><b> €</b></p>
+                    <a class="buttn mt-5"><i class="fas-fa shopping-cart"></i> Buy</a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+<!-- /contenido de pagina, realmente no importa -->
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+
+</html>

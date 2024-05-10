@@ -5,7 +5,8 @@
     <link rel="stylesheet" th:href="@{/static/css/table.css}">
 </head>
 <body class="light-theme dark-theme">
-<script src="//static/css/dashboard.js"></script>
+<script src="/static/js/dashboard.js"></script>
+<script src="/static/js/table.js"></script>
 <div class="app-container">
     <div class="app-left">
         <button class="close-menu">
@@ -84,22 +85,27 @@
                 <div class="chart-container">
                     <div class="chart-container-header">
                         <div class="users">
-                            <table>
-                                <tr>
-                                    <th colspan="4" class="title">Users List</th>
-                                </tr>
+                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Buscar en la tabla...">
+                            <table class="table table-striped">
+                                <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Actions</th>
                                 </tr>
+                                </thead>
+                                <tbody id="tableBody">
                                 <tr th:each="user : ${listUsers}">
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.role.name}"></td>
-                                </tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">Edit</button>
+                                        <a th:href="@{/delete/(id=${user.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">Delete</a>                                </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>

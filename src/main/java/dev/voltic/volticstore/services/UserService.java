@@ -26,4 +26,9 @@ public class UserService {
         return users.stream()
                 .collect(Collectors.groupingBy(user -> user.getRole().getName(), Collectors.counting()));
     }
+
+    // /delete/{id}
+    public void deleteUser(Long id) {
+        repo.deleteById(id);
+    }
 }

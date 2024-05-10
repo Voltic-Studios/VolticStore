@@ -7,18 +7,14 @@
         .users th, .users td {
             border: 1px solid #ddd;
             padding: 8px;
-            background-color: white;
-        }
 
-        .users tr:nth-child(even) {
-            background-color: white;
         }
 
         .users th {
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #4CAF50;
+             background:  #007CFF;
             color: white;
         }
 
@@ -32,4 +28,13 @@
 
         .chart-container-header table {
                     width: 100%;
+        }
+
+        .table {
+            background-color: transparent;
+            color: white;
+        }
+
+        .table th, .table td {
+            color: white;
         }

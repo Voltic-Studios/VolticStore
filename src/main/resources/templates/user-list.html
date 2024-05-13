@@ -104,9 +104,9 @@
                                     <td th:text="${user.role.name}"></td>
                                     <td>
                                         <button class="btn btn-primary btn-sm">Edit</button>
-                                        <a th:href="@{/delete/(id=${user.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">Delete</a>                                </tr>
-                                </tbody>
-                            </table>
+                                        <a th:href="@{'/delete/' + ${user.id}}" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
+                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                        </a>                            </table>
                         </div>
                     </div>
                 </div>

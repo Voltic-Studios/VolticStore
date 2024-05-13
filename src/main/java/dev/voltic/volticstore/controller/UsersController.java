@@ -3,6 +3,7 @@ package dev.voltic.volticstore.controller;
 import dev.voltic.volticstore.domain.User;
 import dev.voltic.volticstore.repo.UserRepository;
 import dev.voltic.volticstore.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -29,16 +30,17 @@ public class UsersController {
         return "user-list";
     }
 
+    @Transactional
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
         userRepository.deleteById(id);
         return "redirect:/users";
     }
 
+    @Transactional
     @PostMapping("/delete/{id}")
     public String deleteUserPost(@PathVariable(name = "id") Long id) {
         userRepository.deleteById(id);
         return "redirect:/users";
     }
-
 }

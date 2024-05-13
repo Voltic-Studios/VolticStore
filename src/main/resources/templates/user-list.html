@@ -103,11 +103,11 @@
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.role.name}"></td>
                                     <td>
-                                        <a th:href="@{'/edit/' + ${user.id}}" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
-                                            <button class="btn btn-danger btn-sm">Edit</button>
+                                        <a th:href="@{'/edit/' + ${user.id}}" >
+                                            <button class="btn btn-primary custom-button">Edit</button>
                                         </a>
                                         <a th:href="@{'/delete/' + ${user.id}}" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
-                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                            <button class="btn btn-danger custom-button">Delete</button>
                                         </a>                            </table>
                         </div>
                     </div>

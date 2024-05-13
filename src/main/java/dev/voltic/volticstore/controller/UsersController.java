@@ -53,7 +53,8 @@ public class UsersController {
         User existingUser = userRepository.findById(id).get();
         existingUser.setUsername(updatedUser.getUsername());
         existingUser.setEmail(updatedUser.getEmail());
-        // Actualiza aquí más campos según sea necesario
+        existingUser.setRole(updatedUser.getRole()); // Agrega esta línea
+
         userRepository.save(existingUser);
         return "redirect:/users";
     }

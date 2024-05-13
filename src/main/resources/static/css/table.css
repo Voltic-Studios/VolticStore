@@ -38,3 +38,23 @@
         .table th, .table td {
             color: white;
         }
+
+        .custom-button {
+            background-color: #495057; /* Cambia el color de fondo según tus preferencias */
+            color: white; /* Cambia el color del texto según tus preferencias */
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 10px; /* Añade bordes redondeados al botón */
+        }
+
+        .custom-button:hover {
+            background-color: green; /* Cambia el color de fondo al pasar el ratón según tus preferencias */
+            color: black; /* Cambia el color del texto al pasar el ratón según tus preferencias */
+        }

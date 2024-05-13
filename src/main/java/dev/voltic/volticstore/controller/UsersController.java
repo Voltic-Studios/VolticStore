@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
@@ -43,4 +40,22 @@ public class UsersController {
         userRepository.deleteById(id);
         return "redirect:/users";
     }
+
+    @GetMapping("/edit/{id}")
+    public String showEditUserForm(@PathVariable(name = "id") Long id, Model model) {
+        User user = userRepository.findById(id).get();
+        model.addAttribute("user", user);
+        return "edit-user";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateUser(@PathVariable(name = "id") Long id, @ModelAttribute("user") User updatedUser) {
+        User existingUser = userRepository.findById(id).get();
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setEmail(updatedUser.getEmail());
+        // Actualiza aquí más campos según sea necesario
+        userRepository.save(existingUser);
+        return "redirect:/users";
+    }
+
 }

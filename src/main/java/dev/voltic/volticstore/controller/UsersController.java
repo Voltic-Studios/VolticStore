@@ -102,4 +102,17 @@ public class UsersController {
         }
     }
 
+    @GetMapping("/addUser")
+    public String showAddUserForm(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "add-user";
+    }
+
+    @PostMapping("/addUser")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/users";
+    }
+
 }

@@ -3,6 +3,7 @@
     <!-- Asegúrate de que la ruta a tu archivo CSS es correcta -->
     <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
     <link rel="stylesheet" th:href="@{/static/css/table.css}">
+
 </head>
 <body class="light-theme dark-theme">
 <script src="/static/js/dashboard.js"></script>
@@ -86,6 +87,11 @@
                     <div class="chart-container-header">
                         <div class="users">
                             <input class="form-control mb-3" id="searchInput" type="text" placeholder="Buscar en la tabla...">
+                            <a href="/downloadUsers" download>
+                                <button class="btn btn-primary custom-button download-button">
+                                    Download
+                                </button>
+                            </a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -107,8 +113,9 @@
                                             <button class="btn btn-primary custom-button">Edit</button>
                                         </a>
                                         <a th:href="@{'/delete/' + ${user.id}}" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
-                                            <button class="btn btn-danger custom-button">Delete</button>
-                                        </a>                            </table>
+                                            <button class="btn btn-danger custom-button delete-button">Delete</button>
+                                        </a>
+                            </table>
                         </div>
                     </div>
                 </div>

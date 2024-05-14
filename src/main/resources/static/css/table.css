@@ -58,3 +58,19 @@
             background-color: green; /* Cambia el color de fondo al pasar el ratón según tus preferencias */
             color: black; /* Cambia el color del texto al pasar el ratón según tus preferencias */
         }
+
+        .download-button {
+            background-color: green;
+        }
+
+        .download-button:hover {
+            background-color: green;
+        }
+
+        .delete-button {
+            background-color: #495057;
+        }
+
+        .delete-button:hover {
+            background-color: red;
+        }

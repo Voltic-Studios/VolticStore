@@ -1,11 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Asegúrate de que la ruta a tu archivo CSS es correcta -->
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css"/>
     <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
     <link rel="stylesheet" th:href="@{/static/css/table.css}">
 </head>
 <body class="light-theme dark-theme">
-<script src="//static/css/dashboard.js"></script>
+<script src="/static/js/dashboard.js"></script>
+<script src="/static/js/table.js"></script>
 <div class="app-container">
     <div class="app-left">
         <button class="close-menu">
@@ -15,7 +17,9 @@
             </svg>
         </button>
         <div class="app-logo">
-            <img src="/static/img/main_logo.png" alt="Main Logo">
+            <a href="/">
+                <img src="/static/img/main_logo.png" alt="Main Logo">
+            </a>
         </div>
         <ul class="nav-list">
             <li class="nav-list-item">
@@ -77,13 +81,19 @@
     </div>
     <div class="app-main">
         <div class="main-header-line">
-            <h1>Users List</h1>
+            <h1>Order List</h1>
         </div>
         <div class="chart-row two">
             <div class="chart-container-wrapper big">
                 <div class="chart-container">
                     <div class="chart-container-header">
                         <div class="users">
+                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Buscar en la tabla...">
+                            <a href="/downloadOrders" download>
+                                <button class="btn btn-primary custom-button download-button">
+                                    Download
+                                </button>
+                            </a>
                             <table class="table table-striped">
                                 <tr>
                                     <th>ID</th>
@@ -92,20 +102,9 @@
                                     <th>Order Status</th>
                                     <th>Customer</th>
                                     <th>Products</th>
-                                    <th>Shipping Address</th>
-                                    <th>Shipping City</th>
-                                    <th>Shipping State</th>
-                                    <th>Shipping Zip</th>
-                                    <th>Shipping Country</th>
-                                    <th>Billing Address</th>
-                                    <th>Billing City</th>
-                                    <th>Billing State</th>
-                                    <th>Billing Zip</th>
-                                    <th>Billing Country</th>
-                                    <th>Payment Method</th>
-                                    <th>Payment Date</th>
                                     <th>Payment Status</th>
                                 </tr>
+                                <tbody id="tableBody">
                                 <tr th:each="order : ${listOrders}">
                                     <td th:text="${order.id}"></td>
                                     <td th:text="${order.orderNumber}"></td>
@@ -117,19 +116,12 @@
                                             <li th:text="${product.name}"></li>
                                         </ul>
                                     </td>
-                                    <td th:text="${order.shippingAddress}"></td>
-                                    <td th:text="${order.shippingCity}"></td>
-                                    <td th:text="${order.shippingState}"></td>
-                                    <td th:text="${order.shippingZip}"></td>
-                                    <td th:text="${order.shippingCountry}"></td>
-                                    <td th:text="${order.billingAddress}"></td>
-                                    <td th:text="${order.billingCity}"></td>
-                                    <td th:text="${order.billingState}"></td>
-                                    <td th:text="${order.billingZip}"></td>
-                                    <td th:text="${order.billingCountry}"></td>
-                                    <td th:text="${order.paymentMethod}"></td>
-                                    <td th:text="${order.paymentDate}"></td>
                                     <td th:text="${order.paymentStatus}"></td>
+                                    <td>
+                                    <a th:href="@{'/viewOrder/' + ${order.id}}" >
+                                        <i class="fa-sharp fa-solid fa-up-right-from-square"></i>
+                                    </a>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

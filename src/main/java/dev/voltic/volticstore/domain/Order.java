@@ -14,15 +14,15 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String orderNumber;
-    private String orderDate;
-    private String orderStatus;
+    private String orderNumber; //x
+    private String orderDate; // x
+    private String orderStatus; // x
 
     @ManyToOne
-    private Customer customer;
+    private Customer customer; // x
 
     @ManyToMany
-    private List<Product> products;
+    private List<Product> products; // quantity
 
     private String shippingAddress;
     private String shippingCity;
@@ -36,7 +36,9 @@ public class Order {
     private String billingZip;
     private String billingCountry;
 
+    private int paymentAmount;
+
     private String paymentMethod;
     private String paymentDate;
-    private String paymentStatus;
+    private String paymentStatus; // x
 }

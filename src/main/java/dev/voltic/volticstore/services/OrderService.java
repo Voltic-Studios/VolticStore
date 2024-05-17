@@ -1,6 +1,7 @@
 package dev.voltic.volticstore.services;
 
 import dev.voltic.volticstore.domain.Order;
+import dev.voltic.volticstore.domain.User;
 import dev.voltic.volticstore.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,9 @@ public class OrderService {
     public Long count() {
         return repo.count();
     }
+
+    public Long countByCustomerId(Long customerId) {
+        return repo.countByCustomerId(customerId);
+    }
+
 }

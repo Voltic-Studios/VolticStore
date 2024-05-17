@@ -2,7 +2,9 @@ package dev.voltic.volticstore.controller;
 
 import dev.voltic.volticstore.domain.Order;
 import dev.voltic.volticstore.domain.Product;
+import dev.voltic.volticstore.domain.User;
 import dev.voltic.volticstore.services.OrderService;
+import dev.voltic.volticstore.services.UserService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -10,6 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +30,9 @@ public class OrdersController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/orders")
     public String showOrderList(Model model) {
@@ -79,6 +86,8 @@ public class OrdersController {
                     .body(out.toByteArray());
         }
     }
+
+
 
     @GetMapping("/viewOrder/{id}")
     public String viewOrder(@PathVariable("id") Long id, Model model) {

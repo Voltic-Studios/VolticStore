@@ -59,6 +59,11 @@
 
 
 <script th:src="@{/static/js/main.js}"></script>
+<script>
+    function addToCart(id) {
+        location.href = "/api/cart/add/" + id;
+    }
+</script>
 </body>
 
 </html>

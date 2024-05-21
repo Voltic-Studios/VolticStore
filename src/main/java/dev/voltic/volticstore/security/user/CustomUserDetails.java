@@ -11,16 +11,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     private final User user;
 
-    @Getter
     private final Role role;
 
     public CustomUserDetails(User user) {
-        this.user = user;
-        this.role = user.getRole();
+        if (user != null) {
+            this.user = user;
+            this.role = user.getRole();
+        } else {
+            throw new IllegalArgumentException("User cannot be null");
+        }
     }
 
     @Override

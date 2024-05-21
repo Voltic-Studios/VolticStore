@@ -38,9 +38,9 @@ public class SecuritySettings {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                 request -> {
-                    request.requestMatchers("/**", "/login", "/register", "/static/**", "/makeRegister").permitAll();
+                    request.requestMatchers("/", "/products/**", "/login", "/register", "/static/**", "/makeRegister").permitAll();
                     // request.requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "PROJECT_MANAGER");
-                    request.requestMatchers("/panel", "/panel/**").authenticated();
+                    request.requestMatchers("/panel", "/panel/**", "/cart", "/api/**").authenticated();
                 }
         ).formLogin(
                 login -> {

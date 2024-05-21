@@ -13,18 +13,20 @@
 </head>
 
 <body>
+<!-- menu vertical -->
 <nav id="menu" class="left show">
     <div id="menu_img">
         <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
     </div>
     <ul>
-        <li><a th:href="@{/}" class="active"><i class="fa fa-home active"></i>Home</a></li>
+        <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
         <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
         <li>
             <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
             <ul style="display: block;" th:each="category : ${categories}">
                 <li>
-                    <a th:href="@{/products/__${category.id}__}">
+                    <a th:href="@{/products/__${category.id}__}"
+                       th:classappend="${category == currentCategory ? 'active' : ''}">
                         <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
                     </a>
                 </li>
@@ -33,6 +35,7 @@
         <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
     </ul>
 </nav>
+<!-- /menu vertical -->
 
 <!-- contenido de pagina, realmente no importa -->
 <div id="container">
@@ -44,20 +47,36 @@
         <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
     </div>
     <div class="content">
-        <img th:src="${product.image}" alt="logo" id="product-image">
-        <div class="text-align-left">
-            <h2 th:text="${product.name}"></h2>
-            <div th:utext="${product.description}"></div>
-            <p id="price" th:text="'Price: ' + ${product.price} + '€'"></p>
-            <button class="btn" th:onclick="'addToCart(' + ${product.id} + ')'" th:text="'Add to cart'"></button>
-        </div>
+        <!-- <img th:src="@{/static/img/fivem.png}" alt="logo" id="logo"> -->
+        <h2><span th:text="${currentCategory.name.toUpperCase()}"></span>PRODUCTS</h2>
     </div>
     <div class="content cnt">
+            <span>
+                <form class="filter">
+                    <select>
+                        <option value="option0">All</option>
+                        <option value="option1">ESX</option>
+                        <option value="option2">QBCore</option>
+                        <option value="option3">QBox</option>
+                    </select>
+                </form>
+            </span>
+    </div>
+    <div class="content">
+        <div class="grid">
+            <th:block th:each="product : ${products}">
+                <div class="card">
+                    <img th:src="${product.image}" alt="product" class="product">
+                    <h3 th:text="${product.name}"></h3>
+                    <p>Price: <b th:text="${product.price}"></b><b> €</b></p>
+                    <a class="buttn mt-5" th:href="@{/products/__${currentCategory.id}__/__${product.id}__}"><i
+                            class="fas-fa shopping-cart"></i> Buy</a>
+                </div>
+            </th:block>
+        </div>
     </div>
 </div>
-
-
-
+<!-- /contenido de pagina, realmente no importa -->
 <script th:src="@{/static/js/main.js}"></script>
 </body>
 

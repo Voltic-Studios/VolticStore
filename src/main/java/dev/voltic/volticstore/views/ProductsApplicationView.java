@@ -17,11 +17,19 @@ public class ProductsApplicationView {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping("/pd/{category}")
+    @RequestMapping("/products/{category}")
     public String category(@PathVariable("category") Long category, Model model) {
         model.addAttribute("currentCategory", categoryService.getCategoryById(category)); // Add current category to the model
         model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
         model.addAttribute("products", productService.getProductsByCategoryId(category));
+        return "products";
+    }
+
+    @RequestMapping("/products/{category}/{product}")
+    public String product(@PathVariable("category") Long category, @PathVariable("product") Long product, Model model) {
+        model.addAttribute("currentCategory", categoryService.getCategoryById(category)); // Add current category to the model
+        model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
+        model.addAttribute("product", productService.getProductById(product));
         return "product";
     }
 }

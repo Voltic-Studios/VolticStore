@@ -61,13 +61,6 @@ public class ProductsApplicationView {
         return "redirect:/cart";
     }
 
-    @PostMapping("/api/cart/checkout")
-    public String checkout(Principal principal) {
-        User user = userService.getUserByUsername(principal.getName());
-        // cartService.checkout(user);
-        return "redirect:/";
-    }
-
     @RequestMapping("/cart")
     public String cart(Model model, Principal principal) {
         User user = userService.getUserByUsername(principal.getName());

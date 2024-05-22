@@ -88,7 +88,7 @@
                 <div class="chart-container">
                     <div class="chart-container-header">
                         <div class="users">
-                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Buscar en la tabla...">
+                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
                             <a href="/downloadOrders" download>
                                 <button class="btn btn-primary custom-button download-button">
                                     Download
@@ -102,6 +102,7 @@
                                     <th>Order Status</th>
                                     <th>Customer</th>
                                     <th>Products</th>
+                                    <th>Price</th>
                                     <th>Payment Status</th>
                                 </tr>
                                 <tbody id="tableBody">
@@ -114,6 +115,11 @@
                                     <td>
                                         <ul th:each="product : ${order.products}">
                                             <li th:text="${product.name}"></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul th:each="product : ${order.products}">
+                                            <li th:text="${product.price}"></li>
                                         </ul>
                                     </td>
                                     <td th:text="${order.paymentStatus}"></td>

@@ -1,5 +1,9 @@
 package dev.voltic.volticstore.controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import dev.voltic.volticstore.domain.Order;
 import dev.voltic.volticstore.domain.Product;
 import dev.voltic.volticstore.domain.User;
@@ -11,6 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,6 +90,51 @@ public class OrdersController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=orders.xlsx")
                     .body(out.toByteArray());
         }
+    }
+
+    @GetMapping("/downloadOrder/{id}")
+    public ResponseEntity<byte[]> downloadOrder(@PathVariable("id") Long id) throws DocumentException {
+        Order order = orderService.getOrderById(id);
+
+        Document document = new Document();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        try {
+            PdfWriter.getInstance(document, out);
+            document.open();
+
+            // Add content to the document using the Order object
+            document.add(new Paragraph("Order ID: " + order.getId()));
+            document.add(new Paragraph("Order Number: " + order.getOrderNumber()));
+            document.add(new Paragraph("Order Date: " + order.getOrderDate()));
+            document.add(new Paragraph("Order Status: " + order.getOrderStatus()));
+            document.add(new Paragraph("Customer: " + order.getCustomer().getName()));
+            document.add(new Paragraph("Email: " + order.getCustomer().getEmail()));
+            document.add(new Paragraph("Address: " + order.getShippingAddress()));
+            document.add(new Paragraph("City: " + order.getShippingCity()));
+            document.add(new Paragraph("State: " + order.getShippingState()));
+            document.add(new Paragraph("Zip: " + order.getShippingZip()));
+            document.add(new Paragraph("Country: " + order.getShippingCountry()));
+            document.add(new Paragraph("Payment Amount: " + order.getPaymentAmount()));
+            document.add(new Paragraph("Payment Method: " + order.getPaymentMethod()));
+            document.add(new Paragraph("Payment Date: " + order.getPaymentDate()));
+            document.add(new Paragraph("Payment Status: " + order.getPaymentStatus()));
+            document.add(new Paragraph("Products: " + order.getProducts().stream().map(Product::getName).collect(Collectors.joining(", "))));
+            document.add(new Paragraph("Total Price: " + (int) order.getProducts().stream().mapToDouble(Product::getPrice).sum() + "€"));
+
+
+            document.close();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=order.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(out.toByteArray());
     }
 
 

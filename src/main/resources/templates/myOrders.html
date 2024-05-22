@@ -79,12 +79,8 @@
                 <div class="chart-container">
                     <div class="chart-container-header">
                         <div class="users">
-                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Buscar en la tabla...">
-                            <a href="/downloadMyOrders" download>
-                                <button class="btn btn-primary custom-button download-button">
-                                    Download
-                                </button>
-                            </a>
+                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
+                            <br>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -107,6 +103,10 @@
                                     </td>
                                     <td th:text="${order.paymentStatus}"></td>
                                     <td>
+                                        <a th:href="@{'/viewOrder/' + ${order.id}}" >
+                                            <i class="fa-sharp fa-solid fa-up-right-from-square"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

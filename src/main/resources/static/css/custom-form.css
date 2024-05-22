@@ -17,3 +17,13 @@
     color: #495057;
 }
 
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1 0 50%;
+    padding: 0 10px;
+}

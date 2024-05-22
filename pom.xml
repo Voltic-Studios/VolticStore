@@ -71,7 +71,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.paypal.sdk/checkout-sdk -->
         <dependency>
             <groupId>com.paypal.sdk</groupId>
             <artifactId>checkout-sdk</artifactId>

@@ -36,7 +36,7 @@
 
 <div id="container">
     <div class="content">
-        <form action="#" th:action="@{/customer/save}" th:object="${customer}" method="post">
+        <form action="#" th:action="@{/api/customer/save}" th:object="${customer}" method="post">
             <input type="hidden" th:field="*{id}"/>
 
             <div>

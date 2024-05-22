@@ -30,12 +30,6 @@ public class Order {
     private String shippingZip;
     private String shippingCountry;
 
-    private String billingAddress;
-    private String billingCity;
-    private String billingState;
-    private String billingZip;
-    private String billingCountry;
-
     private String paymentMethod;
     private String paymentDate;
     private String paymentStatus;

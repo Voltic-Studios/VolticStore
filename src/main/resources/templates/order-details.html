@@ -166,7 +166,9 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a th:href="@{/downloadOrder/{id}(id=${order.id})}" class="btn btn-primary">Download </a>
+                            <div class="form-group custom-form text-right">
+                                <a th:href="@{/downloadOrder/{id}(id=${order.id})}" class="btn btn-primary" style="color: white;">Download Bill</a>
+                            </div>
                         </form>
                 </div>
             </div>

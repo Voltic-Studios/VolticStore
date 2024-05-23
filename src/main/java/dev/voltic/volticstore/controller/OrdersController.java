@@ -1,19 +1,20 @@
 package dev.voltic.volticstore.controller;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 import dev.voltic.volticstore.domain.Order;
 import dev.voltic.volticstore.domain.Product;
 import dev.voltic.volticstore.domain.User;
 import dev.voltic.volticstore.services.OrderService;
 import dev.voltic.volticstore.services.UserService;
+import dev.voltic.volticstore.views.FooterEvent;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfPTable;
 
 @Controller
 public class OrdersController {
@@ -100,32 +105,109 @@ public class OrdersController {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
         try {
-            PdfWriter.getInstance(document, out);
+            PdfWriter writer = PdfWriter.getInstance(document, out);
+            writer.setPageEvent(new FooterEvent()); // Agregar el evento de pie de página
             document.open();
+            // Add image to the document
+            String imagePath = new ClassPathResource("static/img/main_logo.png").getURI().getPath();
+            Image img = Image.getInstance(imagePath);
+
+            // Convertir cm a puntos y ajustar el tamaño de la imagen
+            float cmToPoints = 28.35f;
+            img.scaleAbsolute(5 * cmToPoints, 5 * cmToPoints);
+
+            // Posicionar la imagen en la esquina superior derecha
+            float x = document.getPageSize().getWidth() - img.getScaledWidth();
+            float y = document.getPageSize().getHeight() - img.getScaledHeight();
+            img.setAbsolutePosition(x, y);
+
+            document.add(img);
+
+            // Crear una nueva fuente en negrita y de tamaño 20
+            Font boldFont = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
+
+            // Crear un nuevo párrafo con la fuente especificada
+            Paragraph title = new Paragraph("VOLTIC STORE ", boldFont);
+
+            // Añadir el párrafo al documento
+            document.add(title);
 
             // Add content to the document using the Order object
+            document.add(new Paragraph(" ")); // Salto de línea
             document.add(new Paragraph("Order ID: " + order.getId()));
-            document.add(new Paragraph("Order Number: " + order.getOrderNumber()));
             document.add(new Paragraph("Order Date: " + order.getOrderDate()));
             document.add(new Paragraph("Order Status: " + order.getOrderStatus()));
-            document.add(new Paragraph("Customer: " + order.getCustomer().getName()));
-            document.add(new Paragraph("Email: " + order.getCustomer().getEmail()));
-            document.add(new Paragraph("Address: " + order.getShippingAddress()));
-            document.add(new Paragraph("City: " + order.getShippingCity()));
-            document.add(new Paragraph("State: " + order.getShippingState()));
-            document.add(new Paragraph("Zip: " + order.getShippingZip()));
-            document.add(new Paragraph("Country: " + order.getShippingCountry()));
-            document.add(new Paragraph("Payment Amount: " + order.getPaymentAmount()));
-            document.add(new Paragraph("Payment Method: " + order.getPaymentMethod()));
-            document.add(new Paragraph("Payment Date: " + order.getPaymentDate()));
-            document.add(new Paragraph("Payment Status: " + order.getPaymentStatus()));
-            document.add(new Paragraph("Products: " + order.getProducts().stream().map(Product::getName).collect(Collectors.joining(", "))));
-            document.add(new Paragraph("Total Price: " + (int) order.getProducts().stream().mapToDouble(Product::getPrice).sum() + "€"));
+            document.add(new Paragraph(" ")); // Salto de línea
 
+            Font boldFont2 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+            document.add(new Paragraph("Customer: ", boldFont2));
+            document.add(new Paragraph(order.getCustomer().getName()));
+            document.add(new Paragraph(order.getCustomer().getEmail()));
+            document.add(new Paragraph(order.getShippingAddress() + ", " + order.getShippingZip()));
+            document.add(new Paragraph(order.getShippingCity()));
+            document.add(new Paragraph(order.getShippingCountry()));
+            document.add(new Paragraph(order.getShippingState()));
+            document.add(new Paragraph(" ")); // Salto de línea
+
+            Paragraph orderNumber = new Paragraph("Order Number: " + order.getOrderNumber());
+            orderNumber.setAlignment(Element.ALIGN_CENTER);
+            document.add(orderNumber);
+            document.add(new Paragraph(" ")); // Salto de línea
+
+            // Crear una nueva tabla con 2 columnas
+            PdfPTable table = new PdfPTable(2);
+
+            // Ajustar el ancho de las columnas
+            float[] columnWidths = {80f, 20f};
+            table.setWidths(columnWidths);
+
+            // Crear las frases con la fuente en negrita
+            Phrase productPhrase = new Phrase("Product", boldFont2);
+            Phrase pricePhrase = new Phrase("Price", boldFont2);
+
+            // Agregar las frases a las celdas de la tabla
+            table.addCell(productPhrase);
+            table.addCell(pricePhrase);
+
+            // Agregar los datos de los productos a la tabla
+            for (Product product : order.getProducts()) {
+                table.addCell(product.getName());
+                table.addCell(String.valueOf(product.getPrice()) + "€");
+            }
+
+            // Agregar la tabla al documento
+            document.add(table);
+
+            document.add(new Paragraph(" ")); // Salto de línea
+            double total = 0;
+            for (Product product : order.getProducts()) {
+                total += product.getPrice();
+            }
+            // Convertir cm a puntos
+            float cmToPoints2 = 28.35f;
+
+            // Crear un nuevo párrafo y alinearlo a la derecha
+            Paragraph totalParagraph = new Paragraph("Total Price: " + total + "€");
+            totalParagraph.setAlignment(Element.ALIGN_RIGHT);
+
+            // Mover el párrafo 2 cm a la izquierda
+            totalParagraph.setIndentationRight(2 * cmToPoints2);
+
+            // Agregar el párrafo al documento
+            document.add(totalParagraph);
+            document.add(new Paragraph(" ")); // Salto de línea
+            Paragraph paymentParagraph = new Paragraph("Payment Method: " + order.getPaymentMethod() + "    Payment Date: " + order.getPaymentDate() + "    Payment Status: " + order.getPaymentStatus());
+            paymentParagraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paymentParagraph);
 
             document.close();
+
         } catch (DocumentException e) {
             e.printStackTrace();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         HttpHeaders headers = new HttpHeaders();

@@ -17,8 +17,5 @@ public class Cart {
     @OneToMany
     private List<Product> items;
 
-    private double totalAmount;
-
-    @OneToOne(mappedBy = "cart")
-    private User user;
+    private double totalAmount = 0;
 }

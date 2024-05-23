@@ -36,13 +36,7 @@
 
 <!-- contenido de pagina, realmente no importa -->
 <div id="container">
-    <div id="shopping-cart">
-        <a href="#" class="cart">
-            anonymousUser
-            <i class="fa fa-user"></i>
-        </a>
-        <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
-    </div>
+    <th:block th:replace="fragments/menu :: shoppingCartFragment"></th:block>
     <div class="content">
         <img th:src="${product.image}" alt="logo" id="product-image">
         <div class="text-align-left">

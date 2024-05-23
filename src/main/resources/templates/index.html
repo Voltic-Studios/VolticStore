@@ -13,43 +13,10 @@
 </head>
 
 <body>
-<nav id="menu" class="left show">
-    <div id="menu_img">
-        <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
-    </div>
-    <ul>
-        <li><a th:href="@{/}" class="active"><i class="fa fa-home active"></i>Home</a></li>
-        <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
-        <li>
-            <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
-            <ul style="display: block;" th:each="category : ${categories}">
-                <li>
-                    <a th:href="@{/products/__${category.id}__}">
-                        <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
-    </ul>
-</nav>
+<th:block th:replace="fragments/menu :: menuFragment(categories=${categories})"></th:block>
 
 <div id="container">
-    <div id="shopping-cart">
-        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-            <a th:href="@{/dashboard}" class="cart">
-                <span th:text="${#authentication.name}"></span>
-                <i class="fa fa-user"></i>
-            </a>
-        </th:block>
-        <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
-            <a th:href="@{/login}" class="cart">
-                <span>Login</span>
-                <i class="fa fa-user"></i>
-            </a>
-        </th:block>
-        <a th:href="@{/cart}" class="cart"><i class="fa fa-shopping-cart"></i></a>
-    </div>
+    <th:block th:replace="fragments/menu :: shoppingCartFragment"></th:block>
     <div class="content">
         <img th:src="@{/static/img/1500x500.jpg}" alt="logo" class="logo">
         <span>
@@ -59,7 +26,7 @@
                 <p>Exceptional scripts crafted for your FiveM server!</p>
             </span>
         <span>
-                <h3>✓ TRUSTED BY OVER 7000+ CUSTOMERS</h3>
+                <h3>✓ TRUSTED BY OVER 4+ CUSTOMERS</h3>
                 <h3>✓ ESX / QBCORE COMPATIBILITY</h3>
                 <h3>✓ SUPERIOR SCRIPTS</h3>
                 <h3>✓ ESCROWED AND UNLOCKED AVAILABLE</h3>

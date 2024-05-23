@@ -14,38 +14,12 @@
 
 <body>
 <!-- menu vertical -->
-<nav id="menu" class="left show">
-    <div id="menu_img">
-        <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
-    </div>
-    <ul>
-        <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
-        <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
-        <li>
-            <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
-            <ul style="display: block;" th:each="category : ${categories}">
-                <li>
-                    <a th:href="@{/products/__${category.id}__}"
-                       th:classappend="${category == currentCategory ? 'active' : ''}">
-                        <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
-    </ul>
-</nav>
+<th:block th:replace="fragments/productmenu :: productMenuFragment(categories=${categories}, currentCategory=${currentCategory})"></th:block>
 <!-- /menu vertical -->
 
 <!-- contenido de pagina, realmente no importa -->
 <div id="container">
-    <div id="shopping-cart">
-        <a href="#" class="cart">
-            anonymousUser
-            <i class="fa fa-user"></i>
-        </a>
-        <a th:href="@{/cart}" class="cart"><i class="fa fa-shopping-cart"></i></a>
-    </div>
+    <th:block th:replace="fragments/menu :: shoppingCartFragment"></th:block>
     <div class="content">
         <!-- <img th:src="@{/static/img/fivem.png}" alt="logo" id="logo"> -->
         <h2><span th:text="${currentCategory.name.toUpperCase()}"></span>PRODUCTS</h2>

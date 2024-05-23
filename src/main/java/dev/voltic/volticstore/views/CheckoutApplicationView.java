@@ -29,14 +29,13 @@ public class CheckoutApplicationView {
     @RequestMapping("/api/cart/checkout")
     public String checkout(Principal principal, Model model) {
         User user = userService.getUserByUsername(principal.getName());
-
-        Customer c = customerService.createCustomer(user);
-
-        // cartService.clearCart(user);
-
-        model.addAttribute("customer", c);
-
-        return "checkout";
+        if (!cartService.isCartEmpty(user)) {
+            Customer c = customerService.createCustomer(user);
+            model.addAttribute("customer", c);
+            return "checkout";
+        } else {
+            return "redirect:/cart";
+        }
     }
 
     @PostMapping("/api/customer/save")

@@ -50,6 +50,9 @@ public class ProductsApplicationView {
     @RequestMapping("/api/cart/add/{id}")
     public String addToCart(@PathVariable("id") Long id, Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
+        System.out.println("====================================");
+        System.out.println("User: " + user.getUsername());
+        System.out.println("====================================");
         cartService.addToCart(id, user);
         return "redirect:/";
     }
@@ -66,6 +69,8 @@ public class ProductsApplicationView {
         User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("cartItems", user.getCart().getItems());
         model.addAttribute("totalAmount", cartService.getTotalAmount(user.getCart()));
+
+        model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
         return "cart";
     }
 }

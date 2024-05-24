@@ -1,5 +1,6 @@
 package dev.voltic.volticstore.repo;
 
+import dev.voltic.volticstore.domain.Order;
 import dev.voltic.volticstore.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   
     @Query("SELECT p FROM Product p")
     List<Product> getAllProducts();
+
+
 
 }

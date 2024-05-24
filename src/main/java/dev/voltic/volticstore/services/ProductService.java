@@ -2,6 +2,7 @@ package dev.voltic.volticstore.services;
 
 import dev.voltic.volticstore.domain.Order;
 import dev.voltic.volticstore.domain.Product;
+import dev.voltic.volticstore.repo.OrderRepository;
 import dev.voltic.volticstore.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class ProductService {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     public List<Product> getProductsByCategory(String category) {
         return productRepository.getProductsByCategory(category);
     }
@@ -37,6 +41,14 @@ public class ProductService {
         return productRepository.getAllProducts();
     }
 
-
+    //findByCustomerId
+    public List<Product> findByCustomerId(Long customerId) {
+        List<Order> orders = orderRepository.findByCustomerId(customerId);
+        List<Product> products = new ArrayList<>();
+        for (Order order : orders) {
+            products.addAll(order.getProducts());
+        }
+        return products;
+    }
 
 }

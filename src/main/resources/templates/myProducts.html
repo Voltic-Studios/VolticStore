@@ -22,7 +22,7 @@
             </a>
         </div>
         <ul class="nav-list">
-            <li class="nav-list-item active">
+            <li class="nav-list-item ">
                 <a class="nav-list-link" href="/panel">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-columns">
                         <path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18" />
@@ -39,7 +39,7 @@
                     My Orders
                 </a>
             </li>
-            <li class="nav-list-item">
+            <li class="nav-list-item active">
                 <a class="nav-list-link" href="/myProducts">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase">
                         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
@@ -74,43 +74,21 @@
         <div class="main-header-line">
             <h1>Order List</h1>
         </div>
+
         <div class="chart-row two">
             <div class="chart-container-wrapper big">
                 <div class="chart-container">
                     <div class="chart-container-header">
-                        <div class="users">
-                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
-                            <br>
-                            <div style="margin-bottom: 20px;"></div> <!-- Espacio añadido -->
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Number</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Products</th>
-                                    <th>Payment Status</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tableBody">
-                                <tr th:each="order : ${orders}">
-                                    <td th:text="${order.orderNumber}"></td>
-                                    <td th:text="${order.orderDate}"></td>
-                                    <td th:text="${order.orderStatus}"></td>
-                                    <td>
-                                        <ul th:each="product : ${order.products}">
-                                            <li th:text="${product.name}"></li>
-                                        </ul>
-                                    </td>
-                                    <td th:text="${order.paymentStatus}"></td>
-                                    <td>
-                                        <a th:href="@{'/viewOrder/' + ${order.id}}" >
-                                            <i class="fa-sharp fa-solid fa-up-right-from-square"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="chart-container-wrapper">
+                            <!-- aqui todos los products de mas vendidos a menos-->
+                            <div class="chart-container">
+                                <div class="chart-info wrapper">
+                                    <h2>Products</h2>
+                                    <ul th:each="product : ${products}">
+                                        <li th:text="${product.name}" style="color: white;"></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

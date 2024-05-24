@@ -1,6 +1,7 @@
 package dev.voltic.volticstore.controller;
 
 import dev.voltic.volticstore.domain.Order;
+import dev.voltic.volticstore.domain.Product;
 import dev.voltic.volticstore.domain.User;
 import dev.voltic.volticstore.domain.Customer;
 import dev.voltic.volticstore.repo.CustomerRepository;
@@ -92,5 +93,25 @@ public class PanelController {
         model.addAttribute("orders", orders);
 
         return "myOrders";
+    }
+
+    @GetMapping("/myProducts")
+    public String showMyProducts(Model model, Principal principal) {
+        // Obtén el nombre de usuario del usuario logueado
+        String username = principal.getName();
+
+        // Busca el usuario en la base de datos
+        User user = userRepository.findByUsername(username);
+
+        // Busca el cliente asociado al usuario
+        Customer customer = customerRepository.findByUser(user);
+
+        // Busca los productos que pertenecen a este cliente
+        List<Product> products = productService.findByCustomerId(customer.getId());
+
+        // Añade los productos al modelo
+        model.addAttribute("products", products);
+
+        return "myProducts";
     }
 }

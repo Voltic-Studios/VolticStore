@@ -99,19 +99,14 @@ public class PanelController {
     public String showMyProducts(Model model, Principal principal) {
         // Obtén el nombre de usuario del usuario logueado
         String username = principal.getName();
-
         // Busca el usuario en la base de datos
         User user = userRepository.findByUsername(username);
-
         // Busca el cliente asociado al usuario
         Customer customer = customerRepository.findByUser(user);
-
         // Busca los productos que pertenecen a este cliente
         List<Product> products = productService.findByCustomerId(customer.getId());
-
         // Añade los productos al modelo
         model.addAttribute("products", products);
-
         return "myProducts";
     }
 }

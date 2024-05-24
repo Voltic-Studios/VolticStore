@@ -22,7 +22,7 @@
             </a>
         </div>
         <ul class="nav-list">
-            <li class="nav-list-item active">
+            <li class="nav-list-item">
                 <a class="nav-list-link" href="/panel">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-columns">
                         <path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18" />
@@ -30,7 +30,7 @@
                     Panel
                 </a>
             </li>
-            <li class="nav-list-item">
+            <li class="nav-list-item active">
                 <a class="nav-list-link" href="/myOrders">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
@@ -104,7 +104,7 @@
                                     </td>
                                     <td th:text="${order.paymentStatus}"></td>
                                     <td>
-                                        <a th:href="@{'/viewOrder/' + ${order.id}}" >
+                                        <a th:href="@{'/myViewOrder/' + ${order.id}}" >
                                             <i class="fa-sharp fa-solid fa-up-right-from-square"></i>
                                         </a>
                                     </td>

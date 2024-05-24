@@ -228,4 +228,11 @@ public class OrdersController {
         return "order-details";
     }
 
+    @GetMapping("/myViewOrder/{id}")
+    public String myViewOrder(@PathVariable("id") Long id, Model model) {
+        Order order = orderService.getOrderById(id);
+        model.addAttribute("order", order);
+        return "myOrderDetails";
+    }
+
 }

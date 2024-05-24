@@ -18,9 +18,13 @@ public class Product {
     private String image;
     private double price;
     private int stock;
+    private int orders;
 
     @ManyToOne
     private Category category;
 
+    public void setOrders(int orders) {
+        this.orders = orders;
+    }
 
 }

@@ -98,7 +98,9 @@ public class ProductsController {
     @GetMapping("/editProduct/{id}")
     public String showEditProductForm(@PathVariable(name = "id") Long id, Model model) {
         Product product = productService.getProductById(id);
+        List<Category> categories = categoryService.listAll();
         model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
         return "edit-product";
     }
 

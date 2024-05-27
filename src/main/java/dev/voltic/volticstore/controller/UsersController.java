@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,8 @@ public class UsersController {
 
     @Autowired
     private UserRepository userRepository;
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/users")
     public String showUserList(Model model) {
@@ -113,6 +116,31 @@ public class UsersController {
     public String saveUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/users";
+    }
+
+    @GetMapping("/profile")
+    public String showProfileForm(Model model, Authentication authentication) {
+        String currentUsername = authentication.getName();
+        User currentUser = userRepository.getUserByUsername(currentUsername);
+        model.addAttribute("user", currentUser);
+        return "edit-profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateUserProfile(@ModelAttribute("user") User updatedUser, Authentication authentication) {
+        String currentUsername = authentication.getName();
+        User currentUser = userRepository.getUserByUsername(currentUsername);
+        currentUser.setEmail(updatedUser.getEmail());
+
+        // Check if password field is not empty, then update the password
+        if (!updatedUser.getPassword().isEmpty()) {
+            // Encrypt the password before saving
+            String encodedPassword = passwordEncoder.encode(updatedUser.getPassword());
+            currentUser.setPassword(encodedPassword);
+        }
+
+        userRepository.save(currentUser);
+        return "redirect:/profile";
     }
 
 }

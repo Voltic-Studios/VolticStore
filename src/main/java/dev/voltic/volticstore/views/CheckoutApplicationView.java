@@ -5,10 +5,7 @@ import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import dev.voltic.volticstore.domain.Customer;
 import dev.voltic.volticstore.domain.User;
-import dev.voltic.volticstore.services.CartService;
-import dev.voltic.volticstore.services.CustomerService;
-import dev.voltic.volticstore.services.StripeService;
-import dev.voltic.volticstore.services.UserService;
+import dev.voltic.volticstore.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -36,6 +33,9 @@ public class CheckoutApplicationView {
     @Autowired
     private StripeService stripeService;
 
+    @Autowired
+    private CategoryService categoryService;
+
 
     @Value("${stripe.public.key}")
     private String stripePublicKey;
@@ -47,6 +47,8 @@ public class CheckoutApplicationView {
             Customer c = customerService.createCustomer(user);
             model.addAttribute("customer", c);
             model.addAttribute("apiKey", stripePublicKey);
+
+            model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
             return "checkout";
         } else {
             return "redirect:/cart";

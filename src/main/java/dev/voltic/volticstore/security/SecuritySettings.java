@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -62,7 +63,7 @@ public class SecuritySettings {
                 exception -> {
                     exception.accessDeniedPage("/403");
                 }
-        ).csrf(csrf -> csrf.ignoringRequestMatchers(request -> "/api".equals(request.getServletPath())));
+        ).csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

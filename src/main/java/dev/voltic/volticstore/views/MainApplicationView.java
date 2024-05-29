@@ -24,14 +24,10 @@ public class MainApplicationView {
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
-
         return "index";
     }
-
     @ModelAttribute
     public void addAttributes(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
     }
-
 }

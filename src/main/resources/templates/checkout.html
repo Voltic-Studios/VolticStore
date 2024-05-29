@@ -13,13 +13,10 @@
 </head>
 
 <body>
-<th:block th:replace="fragments/menu :: menuFragment(categories=${categories})"></th:block>
 
 <div id="container">
     <div class="content">
         <h3>Checkout payment</h3>
-        <span th:if="${checkoutPaySuccess}"><h3 class="bg-info">Payment
-                    Successful!</h3></span>
 
         <form th:action="@{/api/create-payment-intent}" method="POST">
             <input type="hidden" name="amount" th:value="${customer.getUser().getCart().totalAmount}"/>
@@ -27,8 +24,8 @@
                     class="stripe-button"
                     th:data-key="${apiKey}"
                     th:data-amount="${customer.getUser().getCart().totalAmount}" data-name="Voltic Studios"
-                    data-description=""
-                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    th:data-description=""
+                    data-image=""
                     data-locale="auto" data-currency="eur">
             </script>
         </form>
@@ -36,9 +33,6 @@
     </div>
 </div>
 <script th:src="@{/static/js/main.js}"></script>
-<script>
-    document.getElementById('submit').innerHTML = '<i class="fa-brands fa-paypal"></i> Pay with PayPal';
-</script>
 </body>
 
 </html>

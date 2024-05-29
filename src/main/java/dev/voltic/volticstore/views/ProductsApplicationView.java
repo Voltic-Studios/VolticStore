@@ -34,7 +34,7 @@ public class ProductsApplicationView {
     @RequestMapping("/products/{category}")
     public String category(@PathVariable("category") Long category, Model model) {
         model.addAttribute("currentCategory", categoryService.getCategoryById(category)); // Add current category to the model
-        model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
+        // model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
         model.addAttribute("products", productService.getProductsByCategoryId(category));
         return "products";
     }
@@ -42,7 +42,7 @@ public class ProductsApplicationView {
     @RequestMapping("/products/{category}/{product}")
     public String product(@PathVariable("category") Long category, @PathVariable("product") Long product, Model model) {
         model.addAttribute("currentCategory", categoryService.getCategoryById(category)); // Add current category to the model
-        model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
+        // model.addAttribute("categories", categoryService.getAllCategories()); // Add products to the model
         model.addAttribute("product", productService.getProductById(product));
         return "product";
     }
@@ -50,9 +50,6 @@ public class ProductsApplicationView {
     @RequestMapping("/api/cart/add/{id}")
     public String addToCart(@PathVariable("id") Long id, Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
-        System.out.println("====================================");
-        System.out.println("User: " + user.getUsername());
-        System.out.println("====================================");
         cartService.addToCart(id, user);
         return "redirect:/";
     }

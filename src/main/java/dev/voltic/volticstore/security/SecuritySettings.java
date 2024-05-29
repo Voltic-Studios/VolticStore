@@ -40,7 +40,7 @@ public class SecuritySettings {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                 request -> {
-                    request.requestMatchers("/", "/products/**", "/login", "/login/**", "/register", "/register/**", "/static/**").permitAll();
+                    request.requestMatchers("/", "/products/**", "/login", "/login/**", "/register", "/register/**", "/static/**", "/api/create-payment-intent").permitAll();
                     request.requestMatchers("/dashboard", "/dashboard/**").hasAnyAuthority("ADMIN");
                     request.requestMatchers("/panel", "/panel/**", "/cart", "/api/**").authenticated();
                 }
@@ -62,7 +62,7 @@ public class SecuritySettings {
                 exception -> {
                     exception.accessDeniedPage("/403");
                 }
-        );
+        ).csrf(csrf -> csrf.ignoringRequestMatchers(request -> "/api".equals(request.getServletPath())));
 
         return http.build();
     }

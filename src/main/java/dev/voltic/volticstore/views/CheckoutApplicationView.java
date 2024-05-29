@@ -10,6 +10,7 @@ import dev.voltic.volticstore.services.CustomerService;
 import dev.voltic.volticstore.services.StripeService;
 import dev.voltic.volticstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,12 +36,17 @@ public class CheckoutApplicationView {
     @Autowired
     private StripeService stripeService;
 
+
+    @Value("${stripe.public.key}")
+    private String stripePublicKey;
+
     @RequestMapping("/cart/checkout")
     public String checkout(Principal principal, Model model) {
         User user = userService.getUserByUsername(principal.getName());
         if (!cartService.isCartEmpty(user)) {
             Customer c = customerService.createCustomer(user);
             model.addAttribute("customer", c);
+            model.addAttribute("apiKey", stripePublicKey);
             return "checkout";
         } else {
             return "redirect:/cart";
@@ -51,16 +57,20 @@ public class CheckoutApplicationView {
     public String saveCustomer(@ModelAttribute Customer customer, Model model) {
         customerService.saveCustomer(customer);
         model.addAttribute("total", cartService.getTotalAmount(customer.getUser().getCart()));
+
         return "redirect:/api/create-payment-intent";
     }
 
     @PostMapping("/create-payment-intent")
-    public PaymentIntent createPaymentIntent(@RequestParam int amount) throws StripeException {
-        return stripeService.createPaymentIntent(amount, "EUR");
+    public String createPaymentIntent(@RequestParam int amount, Model model) throws StripeException {
+        Charge charge = stripeService.charge(amount);
+        model.addAttribute("charge", charge);
+        model.addAttribute("checkoutPaySuccess", true);
+        return "redirect:/cart";
     }
 
     @PostMapping("/charge")
-    public Charge charge(@RequestParam String token, @RequestParam int amount) throws StripeException {
-        return stripeService.charge(token, amount);
+    public Charge charge(@RequestParam int amount) throws StripeException {
+        return stripeService.charge(amount);
     }
 }

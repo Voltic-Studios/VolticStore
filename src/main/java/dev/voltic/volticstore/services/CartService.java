@@ -7,6 +7,7 @@ import dev.voltic.volticstore.repo.CartRepository;
 import dev.voltic.volticstore.repo.ProductRepository;
 import dev.voltic.volticstore.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class CartService {
 
     @Autowired
     private ProductRepository productRepo;
-
 
     public void addToCart(Long productId, User user) {
         Cart cart = user.getCart();

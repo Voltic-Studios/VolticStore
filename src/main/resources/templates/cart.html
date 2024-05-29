@@ -18,6 +18,18 @@
 <div id="container">
     <th:block th:replace="fragments/menu :: shoppingCartFragment"></th:block>
 
+    <th:block th:if="${cartItems.size() == 0}">
+        <div class="content">
+            <h3>Your cart is empty</h3>
+        </div>
+    </th:block>
+    <!-- ${checkoutPaySuccess} -->
+    <th:block th:if="${checkoutPaySuccess}">
+        <div class="content">
+            <h3>Payment Successful!</h3>
+        </div>
+    </th:block>
+
     <div th:each="cartItem : ${cartItems}">
         <div class="content">
             <img th:src="${cartItem.image}" alt="logo" id="product-image">

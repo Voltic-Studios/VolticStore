@@ -17,6 +17,9 @@ public class StripeService {
     @Value("${stripe.api.key}")
     private String stripeApiKey;
 
+    @Value("${stripe.public.key}")
+    private String stripePublicKey;
+
     @PostConstruct
     public void init() {
         Stripe.apiKey = stripeApiKey;
@@ -31,11 +34,13 @@ public class StripeService {
         return PaymentIntent.create(params);
     }
 
-    public Charge charge(String token, int amount) throws StripeException {
+    public Charge charge(int amount) throws StripeException {
         Map<String, Object> chargeParams = new HashMap<>();
         chargeParams.put("amount", amount);
         chargeParams.put("currency", "usd");
-        chargeParams.put("source", token);
+        chargeParams.put("source", stripePublicKey);
+
+        System.out.println("Sa paagao");
         return Charge.create(chargeParams);
     }
 }

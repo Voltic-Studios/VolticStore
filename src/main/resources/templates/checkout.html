@@ -17,34 +17,22 @@
 
 <div id="container">
     <div class="content">
-        <form action="#" th:action="@{/api/customer/save}" th:object="${customer}" method="post">
-            <input type="hidden" th:field="*{id}"/>
+        <h3>Checkout payment</h3>
+        <span th:if="${checkoutPaySuccess}"><h3 class="bg-info">Payment
+                    Successful!</h3></span>
 
-            <div>
-                <h1>Checkout</h1>
-            </div>
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" th:field="*{name}"/>
-            </div>
-
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" th:field="*{email}"/>
-            </div>
-
-            <div>
-                <label for="phone">Phone:</label>
-                <input type="tel" id="phone" th:field="*{phone}"/>
-            </div>
-
-            <div>
-                <label for="address">Address:</label>
-                <input type="text" id="address" th:field="*{address}"/>
-            </div>
-
-            <input type="submit" value="Submit" id="submit"/>
+        <form th:action="@{/api/create-payment-intent}" method="POST">
+            <input type="hidden" name="amount" th:value="${customer.getUser().getCart().totalAmount}"/>
+            <script src="https://checkout.stripe.com/checkout.js"
+                    class="stripe-button"
+                    th:data-key="${apiKey}"
+                    th:data-amount="${customer.getUser().getCart().totalAmount}" data-name="Voltic Studios"
+                    data-description=""
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto" data-currency="eur">
+            </script>
         </form>
+
     </div>
 </div>
 <script th:src="@{/static/js/main.js}"></script>

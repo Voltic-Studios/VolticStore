@@ -1,38 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voltic Studios Shop</title>
-    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css"/>
-    <link rel="stylesheet" th:href="@{/static/css/style.css}">
-    <link rel="stylesheet" th:href="@{/static/css/menu.css}">
-    <link rel="stylesheet" th:href="@{/static/css/popup.css}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Fetch the Stripe publishable key from the server
+        fetch('/api/config').then(response => response.json()).then(data => {
+            const stripe = Stripe(data.publishableKey);
+
+            // Handle form submission
+            document.getElementById('payment-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const {paymentMethodType, currency} = {
+                    paymentMethodType: 'card',
+                    currency: 'usd'
+                };
+
+                // Create a PaymentIntent on the server
+                const response = await fetch('/api/create-payment-intent', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({paymentMethodType, currency})
+                });
+
+                const {clientSecret} = await response.json();
+
+                // Confirm the PaymentIntent with the card details
+                const {error, paymentIntent} = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: stripe.elements().create('card').mount('#card-element')
+                    }
+                });
+
+                if (error) {
+                    // Display error.message in your UI.
+                    document.getElementById('error-message').textContent = error.message;
+                } else {
+                    // The payment has been processed!
+                    if (paymentIntent.status === 'succeeded') {
+                        window.location.href = '/api/payment/next?payment_intent=' + paymentIntent.id;
+                    }
+                }
+            });
+        });
+    </script>
 </head>
-
 <body>
-
-<div id="container">
-    <div class="content">
-        <h3>Checkout payment</h3>
-
-        <form th:action="@{/api/create-payment-intent}" method="POST">
-            <input type="hidden" name="amount" th:value="${customer.getUser().getCart().totalAmount}"/>
-            <script src="https://checkout.stripe.com/checkout.js"
-                    class="stripe-button"
-                    th:data-key="${apiKey}"
-                    th:data-amount="${customer.getUser().getCart().totalAmount}" data-name="Voltic Studios"
-                    th:data-description=""
-                    data-image=""
-                    data-locale="auto" data-currency="eur">
-            </script>
-        </form>
-
-    </div>
-</div>
-<script th:src="@{/static/js/main.js}"></script>
+<h1>Checkout</h1>
+<form id="payment-form">
+    <div id="card-element"></div>
+    <button type="submit">Pay</button>
+    <div id="error-message"></div>
+</form>
 </body>
-
 </html>

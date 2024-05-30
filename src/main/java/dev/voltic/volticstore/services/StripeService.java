@@ -14,11 +14,9 @@ import java.util.Map;
 @Service
 public class StripeService {
 
-    @Value("${stripe.api.key}")
-    private String stripeApiKey;
+    private String stripeApiKey = "sk_test_51PL56ZA6mET3VAIuZ7xzL4jLYd87ZWngdbH4dM7IKwhiLqaS2RrDvILHOHRdZtIxzImIxqm0MuUCB4IwTllUUmka00PQN8egUN";
 
-    @Value("${stripe.public.key}")
-    private String stripePublicKey;
+    private String stripePublicKey = "pk_test_51PL56ZA6mET3VAIuG91zU6NruZSyQaA9sIWqYBYPN0QJlCOjs9JYR5C82R8zLtCC1Vs65aFUfOKE14KvUu9Dqrz300fMo5m2Bt";
 
     @PostConstruct
     public void init() {
@@ -34,13 +32,12 @@ public class StripeService {
         return PaymentIntent.create(params);
     }
 
-    public Charge charge(int amount) throws StripeException {
+    public Charge charge(String token, int amount) throws StripeException {
         Map<String, Object> chargeParams = new HashMap<>();
         chargeParams.put("amount", amount);
         chargeParams.put("currency", "usd");
-        chargeParams.put("source", stripePublicKey);
+        chargeParams.put("source", token); // use the token passed as parameter
 
-        System.out.println("Sa paagao");
         return Charge.create(chargeParams);
     }
 }

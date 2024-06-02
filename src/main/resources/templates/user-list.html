@@ -5,7 +5,8 @@
     <link rel="stylesheet" th:href="@{/static/css/table.css}">
 </head>
 <body class="light-theme dark-theme">
-<script src="//static/css/dashboard.js"></script>
+<script src="/static/js/dashboard.js"></script>
+<script src="/static/js/table.js"></script>
 <div class="app-container">
     <div class="app-left">
         <button class="close-menu">
@@ -15,7 +16,9 @@
             </svg>
         </button>
         <div class="app-logo">
-            <img src="/static/img/main_logo.png" alt="Main Logo">
+            <a href="/">
+                <img src="/static/img/main_logo.png" alt="Main Logo">
+            </a>
         </div>
         <ul class="nav-list">
             <li class="nav-list-item">
@@ -53,6 +56,15 @@
                     Products
                 </a>
             </li>
+            <li class="nav-list-item">
+                <a class="nav-list-link" href="/categories">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                        <polyline points="13 2 13 9 20 9" />
+                    </svg>
+                    Categories
+                </a>
+            </li>
             <li class="nav-list-item active">
                 <a class="nav-list-link" href="/users">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
@@ -62,15 +74,6 @@
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
                     Users
-                </a>
-            </li>
-            <li class="nav-list-item">
-                <a class="nav-list-link" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart">
-                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-                        <path d="M22 12A10 10 0 0 0 12 2v10z" />
-                    </svg>
-                    Reports
                 </a>
             </li>
         </ul>
@@ -84,23 +87,42 @@
                 <div class="chart-container">
                     <div class="chart-container-header">
                         <div class="users">
-                            <table>
-                                <tr>
-                                    <th colspan="4" class="title">Users List</th>
-                                </tr>
+                            <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
+                            <a href="/downloadUsers" download>
+                                <button class="btn btn-primary custom-button download-button">
+                                    Export
+                                </button>
+                            </a>
+                            <table class="table table-striped">
+                                <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Actions</th>
                                 </tr>
+                                </thead>
+                                <tbody id="tableBody">
                                 <tr th:each="user : ${listUsers}">
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.role.name}"></td>
-                                </tr>
+                                    <td>
+                                        <a th:href="@{'/edit/' + ${user.id}}" >
+                                            <button class="btn btn-primary custom-button">Edit</button>
+                                        </a>
+                                        <a th:href="@{'/delete/' + ${user.id}}" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">
+                                            <button class="btn btn-danger custom-button delete-button">Delete</button>
+                                        </a>
+                                    </td>
                             </table>
+                            <a href="/addUser" >
+                                <button class="btn btn-primary custom-button download-button">
+                                    Add User
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 package dev.voltic.volticstore.repo;
 
+import dev.voltic.volticstore.domain.Order;
 import dev.voltic.volticstore.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product getProductById(Long id);
   
     @Query("SELECT p FROM Product p WHERE p.category = :category")
-    List<Product> getProductsByCategory(@Param("category") String category);
+       List<Product> getProductsByCategory(@Param("category") String category);
 
     // Category id
     @Query("SELECT p FROM Product p WHERE p.category.id = :id")
@@ -21,4 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   
     @Query("SELECT p FROM Product p")
     List<Product> getAllProducts();
+
+
+
 }

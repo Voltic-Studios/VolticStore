@@ -2,6 +2,7 @@ package dev.voltic.volticstore.services;
 
 import dev.voltic.volticstore.domain.Customer;
 import dev.voltic.volticstore.domain.Order;
+import dev.voltic.volticstore.domain.User;
 import dev.voltic.volticstore.domain.Product;
 import dev.voltic.volticstore.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class OrderService {
 
     public Long count() {
         return repo.count();
+    }
+
+    public Long countByCustomerId(Long customerId) {
+        return repo.countByCustomerId(customerId);
     }
 
     public void save(Order order) {

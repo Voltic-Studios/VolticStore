@@ -229,6 +229,7 @@ button {
     line-height: 32px;
   }
 
+
   input {
     border-radius: 4px;
     background-color: var(--color-light);
@@ -309,6 +310,8 @@ button {
   padding: 16px;
   display: flex;
   align-items: center;
+  width: auto; /* Ajusta el ancho automáticamente al contenido */
+
 
   &.applicants {
     max-height: 336px;
@@ -858,4 +861,12 @@ button {
 .app-logo img {
     width: 100%;
     height: auto;
+}
+
+p {
+  color: #ffffff; /* Cambia el color del texto a blanco */
+}
+
+#username {
+  color: #ffffff; /* Cambia el color del texto a blanco */
 }

@@ -14,7 +14,9 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query("SELECT o FROM Order o")
     List<Order> getAllOrders();
 
+    List<Order> findByCustomerId(Long customerId);
+
     long count();
-
-
+  
+    long countByCustomerId(Long customerId);
 }

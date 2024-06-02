@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Asegúrate de que la ruta a tu archivo CSS es correcta -->
-    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css"/>
     <link rel="stylesheet" th:href="@{/static/css/dashboard.css}">
     <link rel="stylesheet" th:href="@{/static/css/table.css}">
 </head>
@@ -39,7 +38,7 @@
                     Customers
                 </a>
             </li>
-            <li class="nav-list-item active">
+            <li class="nav-list-item">
                 <a class="nav-list-link" href="/orders">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
@@ -57,7 +56,7 @@
                     Products
                 </a>
             </li>
-            <li class="nav-list-item">
+            <li class="nav-list-item active">
                 <a class="nav-list-link" href="/categories">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
@@ -81,7 +80,7 @@
     </div>
     <div class="app-main">
         <div class="main-header-line">
-            <h1>Order List</h1>
+            <h1>Category List</h1>
         </div>
         <div class="chart-row two">
             <div class="chart-container-wrapper big">
@@ -89,46 +88,30 @@
                     <div class="chart-container-header">
                         <div class="users">
                             <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
-                            <a href="/downloadOrders" download>
-                                <button class="btn btn-primary custom-button download-button">
-                                    Export
-                                </button>
-                            </a>
+                            <div style="margin-bottom: 20px;"></div> <!-- Espacio añadido -->
                             <table class="table table-striped">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Order Number</th>
-                                    <th>Order Date</th>
-                                    <th>Order Status</th>
-                                    <th>Customer</th>
-                                    <th>Products</th>
-                                    <th>Price</th>
-                                    <th>Payment Status</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
                                 </tr>
                                 <tbody id="tableBody">
-                                <tr th:each="order : ${listOrders}">
-                                    <td th:text="${order.id}"></td>
-                                    <td th:text="${order.orderNumber}"></td>
-                                    <td th:text="${order.orderDate}"></td>
-                                    <td th:text="${order.orderStatus}"></td>
-                                    <td th:text="${order.customer.name}"></td>
+                                <tr th:each="category : ${categories}">
+                                    <td th:text="${category.name}"></td>
                                     <td>
-                                        <ul th:each="product : ${order.products}">
-                                            <li th:text="${product.name}"></li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul th:each="product : ${order.products}">
-                                            <li th:text="${product.price}"></li>
-                                        </ul>
-                                    </td>
-                                    <td th:text="${order.paymentStatus}"></td>
-                                    <td>
-                                    <a th:href="@{'/viewOrder/' + ${order.id}}" >
-                                        <i class="fas fa-eye"></i>                                    </a>
+                                        <a th:href="@{'/editCategory/' + ${category.id}}" >
+                                            <button class="btn btn-primary custom-button">Edit</button>
+                                        </a>
+                                        <a th:href="@{'/deleteCategory/' + ${category.id}}" onclick="return confirm('¿Estás seguro de que quieres eliminar este Categoria?')">
+                                            <button class="btn btn-danger custom-button delete-button">Delete</button>
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
+                            <a href="/addCategory" >
+                                <button class="btn btn-primary custom-button download-button">
+                                    Add Category
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

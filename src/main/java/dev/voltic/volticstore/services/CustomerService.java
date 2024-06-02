@@ -38,4 +38,8 @@ public class CustomerService {
             return repo.save(c);
         }
     }
+
+    public Customer getCustomerByUser(Long id) {
+        return repo.getCustomerByUser(id);
+    }
 }

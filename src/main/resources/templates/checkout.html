@@ -2,55 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Checkout</title>
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/checkout.css">
     <script>
-        // Fetch the Stripe publishable key from the server
-        fetch('/api/config').then(response => response.json()).then(data => {
-            const stripe = Stripe(data.publishableKey);
+        var displayed = false;
 
-            // Handle form submission
-            document.getElementById('payment-form').addEventListener('submit', async (event) => {
-                event.preventDefault();
+        function openPayment() {
+            if (displayed) {
+                return;
+            }
 
-                const {paymentMethodType, currency} = {
-                    paymentMethodType: 'card',
-                    currency: 'usd'
-                };
+            $("#card-element").slideDown(300);
 
-                // Create a PaymentIntent on the server
-                const response = await fetch('/api/create-payment-intent', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({paymentMethodType, currency})
-                });
-
-                const {clientSecret} = await response.json();
-
-                // Confirm the PaymentIntent with the card details
-                const {error, paymentIntent} = await stripe.confirmCardPayment(clientSecret, {
-                    payment_method: {
-                        card: stripe.elements().create('card').mount('#card-element')
-                    }
-                });
-
-                if (error) {
-                    // Display error.message in your UI.
-                    document.getElementById('error-message').textContent = error.message;
-                } else {
-                    // The payment has been processed!
-                    if (paymentIntent.status === 'succeeded') {
-                        window.location.href = '/api/payment/next?payment_intent=' + paymentIntent.id;
-                    }
-                }
-            });
-        });
+            displayed = true;
+        }
     </script>
 </head>
 <body>
-<h1>Checkout</h1>
-<form id="payment-form">
-    <div id="card-element"></div>
-    <button type="submit">Pay</button>
+<form method="POST" id="payment-form" th:action="@{/api/submit/payment}" th:object="${customer}">
+    <h1 style="margin: 0.5vh">Checkout</h1>
+    <div id="card-element" style="display: none">
+        <div style="padding: 0.5vh"><input type="text" th:name="name" th:value="*{name}" placeholder="Cardholder Name"
+                                           required></div>
+        <div style="padding: 0.5vh"><input type="email" th:name="email" th:value="*{email}"
+                                           placeholder="Cardholder Email" required></div>
+        <div style="padding: 0.5vh"><input type="number" th:name="phone" th:value="*{phone}"
+                                           placeholder="Cardholder Phone" required></div>
+        <div style="padding: 0.5vh"><input type="text" th:name="address" th:value="*{address}"
+                                           placeholder="Cardholder Address" required>
+        </div>
+
+        <h1>Card Details</h1>
+
+        <div style="padding: 0.5vh"><input type="number" th:name="cardNumber" placeholder="Card Number" required></div>
+        <div style="padding: 0.5vh"><input type="date" th:name="cardExpiry" placeholder="Expiration Date" required></div>
+        <div style="padding: 0.5vh"><input type="number" th:name="cardCVC" placeholder="CVV" required></div>
+    </div>
+    <button type="submit" onclick="openPayment()"><i class="fas fa-credit-card"></i> Pay with card</button>
     <div id="error-message"></div>
 </form>
 </body>

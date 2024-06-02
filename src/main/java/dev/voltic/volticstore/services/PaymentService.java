@@ -1,39 +1,55 @@
 package dev.voltic.volticstore.services;
 
-import com.stripe.exception.StripeException;
-import com.stripe.model.PaymentIntent;
-import com.stripe.param.PaymentIntentCreateParams;
-import dev.voltic.volticstore.request.CreatePaymentRequest;
+import dev.voltic.volticstore.domain.Cart;
+import dev.voltic.volticstore.domain.Customer;
+import dev.voltic.volticstore.domain.Order;
+import dev.voltic.volticstore.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class PaymentService {
 
-    public PaymentIntent createPaymentIntent(CreatePaymentRequest createPaymentRequest) throws StripeException {
-        PaymentIntentCreateParams.Builder paramsBuilder = PaymentIntentCreateParams
-                .builder()
-                .addPaymentMethodType(createPaymentRequest.getPaymentMethodType())
-                .setCurrency(createPaymentRequest.getCurrency())
-                .setAmount(5999L);
+    @Autowired
+    private CustomerService customerService;
 
-        if (createPaymentRequest.getPaymentMethodType().equals("link")) {
-            paramsBuilder.addPaymentMethodType("card").addPaymentMethodType("link");
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private CartService cartService;
+
+    public boolean confirmPayment(Customer c, User user) {
+        Customer cc = customerService.getCustomerByUser(user.getId());
+
+        if (cc == null) {
+            return false;
         }
 
-        if (createPaymentRequest.getPaymentMethodType().equals("acss_debit")) {
-            paramsBuilder.setPaymentMethodOptions(
-                    PaymentIntentCreateParams.PaymentMethodOptions.builder()
-                            .setAcssDebit(
-                                    PaymentIntentCreateParams.PaymentMethodOptions.AcssDebit.builder()
-                                            .setMandateOptions(
-                                                    PaymentIntentCreateParams.PaymentMethodOptions.AcssDebit.MandateOptions.builder()
-                                                            .setPaymentSchedule(PaymentIntentCreateParams.PaymentMethodOptions.AcssDebit.MandateOptions.PaymentSchedule.SPORADIC)
-                                                            .setTransactionType(PaymentIntentCreateParams.PaymentMethodOptions.AcssDebit.MandateOptions.TransactionType.PERSONAL)
-                                                            .build())
-                                            .build())
-                            .build());
-        }
+        cc.setUser(user);
 
-        return PaymentIntent.create(paramsBuilder.build());
+        cc.setAddress(c.getAddress());
+        cc.setEmail(c.getEmail());
+        cc.setPhone(c.getPhone());
+        cc.setName(c.getName());
+
+        cc.setCardCVC(c.getCardCVC());
+        cc.setCardExpiry(c.getCardExpiry());
+        cc.setCardNumber(c.getCardNumber());
+
+        cc.setOrders(cc.getOrders());
+
+        cartService.clearCart(user);
+
+        userService.save(user);
+        customerService.saveCustomer(cc);
+
+        orderService.createOrder(new Order(), cc);
+
+        return true;
     }
 }

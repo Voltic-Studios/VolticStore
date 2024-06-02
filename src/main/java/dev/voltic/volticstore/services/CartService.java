@@ -43,6 +43,14 @@ public class CartService {
         return user.getCart().getItems().isEmpty();
     }
 
+    // Clear the cart
+    public void clearCart(User user) {
+        Cart cart = user.getCart();
+        cart.getItems().clear();
+        cart.setTotalAmount(0.0);
+        cartRepo.save(cart);
+    }
+
     public void removeFromCart(Long productId, User user) {
         Cart cart = user.getCart();
         List<Product> items = cart.getItems();

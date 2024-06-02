@@ -34,4 +34,5 @@ public class Order {
     private String paymentDate;
     private String paymentStatus;
 
+    private double paymentAmount;
 }

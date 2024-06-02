@@ -44,7 +44,7 @@ public class OrdersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/orders")
+    @GetMapping("/dashboard/orders")
     public String showOrderList(Model model) {
         List<Order> listOrders = orderService.listAll();
         model.addAttribute("listOrders", listOrders);
@@ -56,7 +56,7 @@ public class OrdersController {
         return orderService.count();
     }
 
-    @GetMapping("/downloadOrders")
+    @GetMapping("/api/downloadOrders")
     public ResponseEntity<byte[]> downloadOrders() throws IOException {
         List<Order> orders = orderService.listAll();
 
@@ -97,7 +97,7 @@ public class OrdersController {
         }
     }
 
-    @GetMapping("/downloadOrder/{id}")
+    @GetMapping("/api/downloadOrder/{id}")
     public ResponseEntity<byte[]> downloadOrder(@PathVariable("id") Long id) throws DocumentException {
         Order order = orderService.getOrderById(id);
 
@@ -221,14 +221,14 @@ public class OrdersController {
 
 
 
-    @GetMapping("/viewOrder/{id}")
+    @GetMapping("/dashboard/viewOrder/{id}")
     public String viewOrder(@PathVariable("id") Long id, Model model) {
         Order order = orderService.getOrderById(id);
         model.addAttribute("order", order);
         return "order-details";
     }
 
-    @GetMapping("/myViewOrder/{id}")
+    @GetMapping("/panel/myViewOrder/{id}")
     public String myViewOrder(@PathVariable("id") Long id, Model model) {
         Order order = orderService.getOrderById(id);
         model.addAttribute("order", order);

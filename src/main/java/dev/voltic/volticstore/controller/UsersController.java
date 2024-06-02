@@ -32,7 +32,7 @@ public class UsersController {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @GetMapping("/users")
+    @GetMapping("/dashboard/users")
     public String showUserList(Model model) {
         List<User> listUsers = userService.listAll();
         model.addAttribute("listUsers", listUsers);
@@ -40,27 +40,27 @@ public class UsersController {
     }
 
     @Transactional
-    @GetMapping("/delete/{id}")
+    @GetMapping("/dashboard/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
         userRepository.deleteById(id);
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 
     @Transactional
-    @PostMapping("/delete/{id}")
+    @PostMapping("/dashboard/delete/{id}")
     public String deleteUserPost(@PathVariable(name = "id") Long id) {
         userRepository.deleteById(id);
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/dashboard/edit/{id}")
     public String showEditUserForm(@PathVariable(name = "id") Long id, Model model) {
         User user = userRepository.findById(id).get();
         model.addAttribute("user", user);
         return "edit-user";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/dashboard/edit/{id}")
     public String updateUser(@PathVariable(name = "id") Long id, @ModelAttribute("user") User updatedUser) {
         User existingUser = userRepository.findById(id).get();
         existingUser.setUsername(updatedUser.getUsername());
@@ -68,10 +68,10 @@ public class UsersController {
         existingUser.setRole(updatedUser.getRole()); // Agrega esta línea
 
         userRepository.save(existingUser);
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 
-    @GetMapping("/downloadUsers")
+    @GetMapping("/dashboard/downloadUsers")
     public ResponseEntity<byte[]> downloadUsers(HttpServletResponse response) throws IOException {
         List<User> users = userService.listAll();
 
@@ -105,20 +105,20 @@ public class UsersController {
         }
     }
 
-    @GetMapping("/addUser")
+    @GetMapping("/dashboard/addUser")
     public String showAddUserForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "add-user";
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/dashboard/addUser")
     public String saveUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/dashboard/users";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/panel/profile")
     public String showProfileForm(Model model, Authentication authentication) {
         String currentUsername = authentication.getName();
         User currentUser = userRepository.getUserByUsername(currentUsername);
@@ -126,7 +126,7 @@ public class UsersController {
         return "edit-profile";
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/panel/profile")
     public String updateUserProfile(@ModelAttribute("user") User updatedUser, Authentication authentication) {
         String currentUsername = authentication.getName();
         User currentUser = userRepository.getUserByUsername(currentUsername);
@@ -140,7 +140,7 @@ public class UsersController {
         }
 
         userRepository.save(currentUser);
-        return "redirect:/profile";
+        return "redirect:/panel/profile";
     }
 
 }

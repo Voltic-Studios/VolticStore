@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a class="nav-list-link" href="/customers">
+                <a class="nav-list-link" href="/dashboard/customers">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase">
                         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                         <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a class="nav-list-link" href="/orders">
+                <a class="nav-list-link" href="/dashboard/orders">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                         <polyline points="13 2 13 9 20 9" />
@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li class="nav-list-item active">
-                <a class="nav-list-link" href="/products">
+                <a class="nav-list-link" href="/dashboard/products">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                         <polyline points="13 2 13 9 20 9" />
@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a class="nav-list-link" href="/categories">
+                <a class="nav-list-link" href="/dashboard/categories">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                         <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                         <polyline points="13 2 13 9 20 9" />
@@ -67,7 +67,7 @@
                 </a>
             </li>
             <li class="nav-list-item ">
-                <a class="nav-list-link" href="/users">
+                <a class="nav-list-link" href="/dashboard/users">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                         <circle cx="9" cy="7" r="4" />
@@ -87,7 +87,7 @@
             <div class="chart-container-wrapper big">
                 <div class="chart-container">
                     <div class="chart-container-header">
-                        <form th:action="@{/addProduct}" th:object="${product}" method="post">
+                        <form th:action="@{/dashboard/addProduct}" th:object="${product}" method="post">
                             <div class="form-row">
                             <div class="form-group custom-form">
                                 <label for="name">Name</label>

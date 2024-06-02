@@ -3,6 +3,7 @@ package dev.voltic.volticstore.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -18,13 +19,10 @@ public class Product {
     private String image;
     private double price;
     private int stock;
+    @Setter
     private int orders;
 
     @ManyToOne
     private Category category;
-
-    public void setOrders(int orders) {
-        this.orders = orders;
-    }
 
 }

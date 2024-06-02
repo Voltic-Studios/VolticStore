@@ -29,10 +29,21 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.role.name = :role")
     List<User> getUsersByRole(@Param("role") String role);
 
+    // Get cart
+    @Query("SELECT u.cart FROM User u WHERE u.id = :id")
+    User getUserCart(@Param("id") Long id);
+
     @Query("SELECT u FROM User u WHERE u.id = :id")
     User getUserById(@Param("id") Long id);
 
     // hazme el query para  el findByUsername
     User findByUsername(String username);
 
+    // Check if user exists
+    @Query("SELECT COUNT(u) FROM User u WHERE u.username = :username")
+    long checkIfUserExists(@Param("username") String username);
+
+    // Check if user cart exists
+    @Query("SELECT COUNT(u.cart) FROM User u WHERE u.id = :id")
+    long checkIfCartExists(@Param("id") Long id);
 }

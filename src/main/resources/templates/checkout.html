@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/checkout.css">
+    <script>
+        var displayed = false;
+
+        function openPayment() {
+            if (displayed) {
+                return;
+            }
+
+            $("#card-element").slideDown(300);
+
+            displayed = true;
+        }
+    </script>
+</head>
+<body>
+<form method="POST" id="payment-form" th:action="@{/api/submit/payment}" th:object="${customer}">
+    <h1 style="margin: 0.5vh">Checkout</h1>
+    <div id="card-element" style="display: none">
+        <div style="padding: 0.5vh"><input type="text" th:name="name" th:value="*{name}" placeholder="Cardholder Name"
+                                           required></div>
+        <div style="padding: 0.5vh"><input type="email" th:name="email" th:value="*{email}"
+                                           placeholder="Cardholder Email" required></div>
+        <div style="padding: 0.5vh"><input type="number" th:name="phone" th:value="*{phone}"
+                                           placeholder="Cardholder Phone" required></div>
+        <div style="padding: 0.5vh"><input type="text" th:name="address" th:value="*{address}"
+                                           placeholder="Cardholder Address" required>
+        </div>
+
+        <h1>Card Details</h1>
+
+        <div style="padding: 0.5vh"><input type="number" th:name="cardNumber" placeholder="Card Number" required></div>
+        <div style="padding: 0.5vh"><input type="date" th:name="cardExpiry" placeholder="Expiration Date" required></div>
+        <div style="padding: 0.5vh"><input type="number" th:name="cardCVC" placeholder="CVV" required></div>
+    </div>
+    <button type="submit" onclick="openPayment()"><i class="fas fa-credit-card"></i> Pay with card</button>
+    <div id="error-message"></div>
+</form>
+</body>
+</html>

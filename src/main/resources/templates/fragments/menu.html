@@ -1,21 +1,60 @@
-<div th:fragment="menuFragment(categories)">
+<div th:fragment="menuFragment(categories)" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <nav id="menu" class="left show">
         <div id="menu_img">
-            <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
+            <img th:src="@{/static/img/main_logo.png}" style="cursor: pointer;" onclick="location.href='/'" alt="logo"
+                 class="logo">
         </div>
         <ul>
-            <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
+            <li><a th:href="@{/}"><i class="fa fa-home active"></i>Home</a></li>
             <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
             <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
-                <ul style="display: block;" th:each="category : ${categories}">
-                    <li th:href="/pd/${category.id}">
-                        <span th:text="${category.image}"></span> <span th:text="${category.name}"></span>
+                <a onclick="toggleProductList()" href="#"><i class="fa fa-shopping-cart"></i>Products <i
+                        class="fa fa-caret-down"></i></a>
+                <ul id="productList" style="display: block;" th:each="category : ${categories}">
+                    <li>
+                        <a th:href="@{/products/__${category.id}__}">
+                            <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
+                        </a>
                     </li>
                 </ul>
             </li>
             <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
         </ul>
     </nav>
-    <!-- /menu vertical -->
+
+    <script th:src="@{/static/js/main.js}"></script>
+</div>
+
+<div th:fragment="shoppingCartFragment">
+    <div id="shopping-cart">
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <th:block sec:authorize="hasAnyAuthority('ADMIN')">
+                <a th:href="@{/dashboard}" class="cart">
+                    <span>Admin</span>
+                    <i class="fa fa-user
+                    "></i>
+                </a>
+            </th:block>
+            <th:block sec:authorize="!hasAnyAuthority('ADMIN')">
+                <a th:href="@{/panel}" class="cart">
+                    <span th:text="${#authentication.name}"></span>
+                    <i class="fa fa-user
+                    "></i>
+                </a>
+            </th:block>
+            <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a th:href="@{/login}" class="cart">
+                    <span>Login</span>
+                    <i class="fa fa-user"></i>
+                </a>
+            </th:block>
+            <a th:href="@{/cart}" class="cart"><i class="fa fa-shopping-cart"></i></a>
+        </th:block>
+        <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/login}" class="cart">
+                <span>Login</span>
+                <i class="fa fa-user"></i>
+            </a>
+        </th:block>
+    </div>
 </div>

@@ -1,0 +1,25 @@
+<div th:fragment="productMenuFragment(categories, currentCategory)">
+    <nav id="menu" class="left show">
+        <div id="menu_img">
+            <img th:src="@{/static/img/main_logo.png}" style="cursor: pointer;" onclick="location.href='/'" alt="logo" class="logo">
+        </div>
+        <ul>
+            <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
+            <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
+            <li>
+                <a onclick="toggleProductList()" href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
+                <ul id="productList" style="display: block;" th:each="category : ${categories}">
+                    <li>
+                        <a th:href="@{/products/__${category.id}__}"
+                           th:classappend="${category == currentCategory ? 'active' : ''}">
+                            <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
+        </ul>
+    </nav>
+
+    <script th:src="@{/static/js/main.js}"></script>
+</div>

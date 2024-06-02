@@ -20,6 +20,10 @@ public class Customer {
     private String phone;
     private String address;
 
+    private String cardNumber;
+    private String cardExpiry;
+    private String cardCVC;
+
     @ManyToOne
     private User user;
 

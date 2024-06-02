@@ -30,9 +30,9 @@ public class Order {
     private String shippingZip;
     private String shippingCountry;
 
-    private int paymentAmount;
-
     private String paymentMethod;
     private String paymentDate;
-    private String paymentStatus; // x
+    private String paymentStatus;
+
+    private double paymentAmount;
 }

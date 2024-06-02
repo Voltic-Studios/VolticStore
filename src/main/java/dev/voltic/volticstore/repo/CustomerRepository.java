@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    @Query("SELECT c FROM Customer c WHERE c.id = :id")
+    @Query("SELECT c FROM Customer c WHERE c.user.id = :id")
     Customer getCustomerById(Long id);
 
     @Query("SELECT c FROM Customer c")
@@ -19,4 +19,11 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c WHERE c.user = :user")
     Customer findByUser(User user);
 
+    // Get last order
+    @Query("SELECT c FROM Customer c ORDER BY c.id DESC")
+    Customer getLastOrder();
+
+    // Get customer by user
+    @Query("SELECT c FROM Customer c WHERE c.user.id = :id")
+    Customer getCustomerByUser(Long id);
 }

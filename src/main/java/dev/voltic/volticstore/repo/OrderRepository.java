@@ -17,6 +17,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     List<Order> findByCustomerId(Long customerId);
 
     long count();
-
+  
     long countByCustomerId(Long customerId);
 }

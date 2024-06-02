@@ -19,4 +19,6 @@ public class User {
     @ManyToOne
     private Role role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 }

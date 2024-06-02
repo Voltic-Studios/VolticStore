@@ -7,9 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 @EnableWebSecurity
@@ -38,9 +41,9 @@ public class SecuritySettings {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                 request -> {
-                    request.requestMatchers("/**", "/login", "/register", "/static/**", "/makeRegister").permitAll();
-                    // request.requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "PROJECT_MANAGER");
-                    request.requestMatchers("/panel", "/panel/**").authenticated();
+                    request.requestMatchers("/", "/products/**", "/login", "/login/**", "/register", "/register/**", "/static/**", "/api/create-payment-intent").permitAll();
+                    request.requestMatchers("/dashboard", "/dashboard/**").hasAnyAuthority("ADMIN");
+                    request.requestMatchers("/panel", "/panel/**", "/cart", "/api/**").authenticated();
                 }
         ).formLogin(
                 login -> {
@@ -60,7 +63,7 @@ public class SecuritySettings {
                 exception -> {
                     exception.accessDeniedPage("/403");
                 }
-        );
+        ).csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

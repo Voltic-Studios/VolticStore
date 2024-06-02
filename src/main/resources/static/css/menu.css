@@ -91,6 +91,12 @@
     color: #4d50ff;
 }
 
+#menu ul a.non-active {
+    background: linear-gradient(to bottom, #02001d, #020025);
+    border-left-color: #ff0000;
+    color: #ff0000;
+}
+
 #menu ul a:hover i:first-child {
     color: #4d50ff;
 }

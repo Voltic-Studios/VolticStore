@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltic Studios Shop</title>
+    <link rel="stylesheet" href="https://cdn.joordih.lol/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/static/css/popup.css}">
+    <link rel="stylesheet" th:href="@{/static/css/about.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+<th:block th:replace="fragments/aboutFragment :: menuFragment(categories=${categories})"></th:block>
+
+<div id="container">
+    <th:block th:replace="fragments/menu :: shoppingCartFragment"></th:block>
+    <div class="content about">
+        <h1>ABOUT US</h1>
+        <p>
+            Voltic Studios is a FiveM script shop that offers high-quality scripts for your FiveM server. Our scripts
+            are
+            designed to enhance your server's gameplay and provide a better experience for your players. We offer a
+            wide
+            range of scripts, including ESX and QBCore scripts, to suit your server's needs. Our scripts are
+            regularly
+            updated and maintained to ensure they are compatible with the latest versions of FiveM and provide the
+            best
+            performance for your server. Whether you are looking for a custom script or a pre-made script, we have
+            you
+            covered. Our team of experienced developers is dedicated to providing you with the best scripts and
+            support
+            to help you create the ultimate FiveM server.
+        </p>
+
+        <h1>WHY CHOOSE US?</h1>
+        <p>
+            At Voltic Studios, we are committed to providing you with the best scripts and support to help you
+            create
+            the ultimate FiveM server. Here are a few reasons why you should choose us:
+        </p>
+
+        <ul>
+            <li>High-Quality Scripts: Our scripts are designed to enhance your server's gameplay and provide a
+                better
+                experience for your players.</li>
+            <li>Regular Updates: Our scripts are regularly updated and maintained to ensure they are compatible
+                with
+                the latest versions of FiveM.</li>
+            <li>Experienced Developers: Our team of experienced developers is dedicated to providing you with the
+                best
+                scripts and support to help you create the ultimate FiveM server.</li>
+            <li>Custom Scripts: We offer custom script development services to help you create unique and
+                customized
+                scripts for your server.</li>
+            <li>24/7 Support: We offer 24/7 support to help you with any questions or issues you may have with our
+                scripts.</li>
+        </ul>
+
+        <h1>CONTACT US</h1>
+        <p>
+            If you have any questions or need help with our scripts, please feel free to contact us. Our team is
+            here
+            to help you create the ultimate FiveM server and provide you with the best scripts and support.
+        </p>
+
+        <a class="ddd" href="https://twitter.com/VolticStudiosCM"><i class="fa-brands fa-twitter"></i> <span>@VolticStudiosCM</span></a>
+    </div>
+</div>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+
+</html>

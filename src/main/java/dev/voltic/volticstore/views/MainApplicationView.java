@@ -30,4 +30,9 @@ public class MainApplicationView {
     public void addAttributes(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
     }
+
+    @RequestMapping("/about")
+    public String about(Model model) {
+        return "about";
+    }
 }

@@ -26,13 +26,14 @@ public class MainApplicationView {
     public String index(Model model) {
         return "index";
     }
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
-    }
 
     @RequestMapping("/about")
     public String about(Model model) {
         return "about";
+    }
+
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategories());
     }
 }

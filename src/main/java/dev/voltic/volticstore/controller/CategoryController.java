@@ -41,15 +41,15 @@ public class CategoryController {
         return "redirect:/dashboard/categories";
     }
 
-    @GetMapping("/addCategory")
+    @GetMapping("/dashboard/addCategory")
     public String showAddForm(Model model) {
         model.addAttribute("category", new Category());
         return "add-category";
     }
 
-    @PostMapping("/addCategory")
+    @PostMapping("/dashboard/addCategory")
     public String addCategory(Category category) {
         categoryService.save(category);
-        return "redirect:/categories";
+        return "redirect:/dashboard/categories";
     }
 }

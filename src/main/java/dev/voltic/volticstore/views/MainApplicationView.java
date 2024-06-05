@@ -36,5 +36,4 @@ public class MainApplicationView {
     public void addAttributes(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
     }
-
 }

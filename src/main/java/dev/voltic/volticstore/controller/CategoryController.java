@@ -16,40 +16,40 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/categories")
+    @GetMapping("/dashboard/categories")
     public String showCategories(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
         return "categories-list";
     }
 
-    @GetMapping("/deleteCategory/{id}")
+    @GetMapping("/dashboard/deleteCategory/{id}")
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
-        return "redirect:/categories";
+        return "redirect:/dashboard/categories";
     }
 
-    @GetMapping("/editCategory/{id}")
+    @GetMapping("/dashboard/editCategory/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Category category = categoryService.getCategoryById(id);
         model.addAttribute("category", category);
         return "edit-category";
     }
-    @PostMapping("/editCategory/{id}")
+    @PostMapping("/dashboard/editCategory/{id}")
     public String editCategory(@PathVariable Long id, Category category) {
         category.setId(id); // Ensure the category has the correct ID
         categoryService.save(category);
-        return "redirect:/categories";
+        return "redirect:/dashboard/categories";
     }
 
-    @GetMapping("/addCategory")
+    @GetMapping("/dashboard/addCategory")
     public String showAddForm(Model model) {
         model.addAttribute("category", new Category());
         return "add-category";
     }
 
-    @PostMapping("/addCategory")
+    @PostMapping("/dashboard/addCategory")
     public String addCategory(Category category) {
         categoryService.save(category);
-        return "redirect:/categories";
+        return "redirect:/dashboard/categories";
     }
 }

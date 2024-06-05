@@ -24,14 +24,14 @@ public class CustomersController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/customers")
+    @GetMapping("/dashboard/customers")
     public String showCustomerList(Model model) {
         List<Customer> listCustomers = customerService.listAll();
         model.addAttribute("listCustomers", listCustomers);
         return "customer-list";
     }
 
-    @GetMapping("/downloadCustomers")
+    @GetMapping("/api/downloadCustomers")
     public ResponseEntity<byte[]> downloadCustomers(HttpServletResponse response) throws IOException {
         List<Customer> customers = customerService.listAll();
 

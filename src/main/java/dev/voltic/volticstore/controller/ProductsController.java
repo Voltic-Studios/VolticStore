@@ -31,14 +31,14 @@ public class ProductsController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/products")
+    @GetMapping("/dashboard/products")
     public String showProductList(Model model) {
         List<Product> listProducts = productService.listAll();
         model.addAttribute("listProducts", listProducts);
         return "product-list";
     }
 
-    @GetMapping("/downloadProducts")
+    @GetMapping("/api/downloadProducts")
     public ResponseEntity<byte[]> downloadProducts() throws IOException {
         List<Product> products = productService.listAll();
 
@@ -70,7 +70,7 @@ public class ProductsController {
         }
     }
 
-    @GetMapping("/addProduct")
+    @GetMapping("/dashboard/addProduct")
     public String showAddProductForm(Model model) {
         List<Category> categories = categoryService.listAll();
         model.addAttribute("categories", categories);
@@ -80,22 +80,22 @@ public class ProductsController {
         return "add-product";
     }
 
-    @PostMapping("/addProduct")
+    @PostMapping("/dashboard/addProduct")
     public String addProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-product";
         }
         productService.save(product);
-        return "redirect:/products";
+        return "redirect:/dashboard/products";
     }
 
-    @GetMapping("/deleteProduct/{id}")
+    @GetMapping("/dashboard/deleteProduct/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id) {
         productService.deleteById(id);
-        return "redirect:/products";
+        return "redirect:/dashboard/products";
     }
 
-    @GetMapping("/editProduct/{id}")
+    @GetMapping("/dashboard/editProduct/{id}")
     public String showEditProductForm(@PathVariable(name = "id") Long id, Model model) {
         Product product = productService.getProductById(id);
         List<Category> categories = categoryService.listAll();
@@ -104,7 +104,7 @@ public class ProductsController {
         return "edit-product";
     }
 
-    @PostMapping("/editProduct/{id}")
+    @PostMapping("/dashboard/editProduct/{id}")
     public String updateProduct(@PathVariable(name = "id") Long id, @ModelAttribute("product") Product updatedProduct) {
         Product existingProduct = productService.getProductById(id);
         existingProduct.setName(updatedProduct.getName());

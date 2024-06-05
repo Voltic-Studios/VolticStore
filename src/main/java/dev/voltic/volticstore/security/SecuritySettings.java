@@ -41,7 +41,8 @@ public class SecuritySettings {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                 request -> {
-                    request.requestMatchers("/", "/products/**", "/login", "/login/**", "/register", "/register/**", "/static/**", "/api/create-payment-intent").permitAll();
+                    request.requestMatchers("/api/downloadOrder/**").permitAll();
+                    request.requestMatchers("/", "/about", "/products/**", "/login", "/login/**", "/register", "/register/**", "/static/**", "/api/create-payment-intent").permitAll();
                     request.requestMatchers("/dashboard", "/dashboard/**").hasAnyAuthority("ADMIN");
                     request.requestMatchers("/panel", "/panel/**", "/cart", "/api/**").authenticated();
                 }

@@ -116,7 +116,7 @@ public class ProductsController {
         existingProduct.setCategory(updatedProduct.getCategory());
 
         productService.save(existingProduct);
-        return "redirect:/products";
+        return "redirect:/dashboard/products";
     }
 
 }

@@ -13,26 +13,7 @@
 </head>
 
 <body>
-<nav id="menu" class="left show">
-    <div id="menu_img">
-        <img th:src="@{/static/img/main_logo.png}" alt="logo" class="logo">
-    </div>
-    <ul>
-        <li><a th:href="@{/}" class="active"><i class="fa fa-home active"></i>Home</a></li>
-        <li><a th:href="@{/about}"><i class="fa-solid fa-circle-info"></i>About</a></li>
-        <li>
-            <a href="#"><i class="fa fa-shopping-cart"></i>Products <i class="fa fa-caret-down"></i></a>
-            <ul style="display: block;" th:each="category : ${categories}">
-                <li>
-                    <a th:href="@{/products/__${category.id}__}">
-                        <span th:class="${category.image}"></span> <span th:text="${category.name}"></span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#"><i class="fa fa-phone"></i>Contact</a></li>
-    </ul>
-</nav>
+<th:block th:replace="fragments/productmenu :: productMenuFragment(categories = ${categories}, currentCategory = ${currentCategory})"></th:block>
 
 <!-- contenido de pagina, realmente no importa -->
 <div id="container">
@@ -49,8 +30,6 @@
     <div class="content cnt">
     </div>
 </div>
-
-
 
 <script th:src="@{/static/js/main.js}"></script>
 <script>

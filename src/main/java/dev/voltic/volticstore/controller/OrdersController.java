@@ -211,7 +211,7 @@ public class OrdersController {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=order.pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=order-" + order.getOrderNumber() + ".pdf");
 
         return ResponseEntity.ok()
                 .headers(headers)

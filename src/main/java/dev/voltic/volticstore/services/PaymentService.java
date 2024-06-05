@@ -43,12 +43,12 @@ public class PaymentService {
 
         cc.setOrders(cc.getOrders());
 
-        cartService.clearCart(user);
-
         userService.save(user);
         customerService.saveCustomer(cc);
 
         orderService.createOrder(new Order(), cc);
+
+        cartService.clearCart(user);
 
         return true;
     }
